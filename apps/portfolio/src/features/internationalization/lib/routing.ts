@@ -4,12 +4,10 @@ export const locales = [
   {
     slug: 'en',
     dir: 'ltr',
-    name: 'English',
   },
   {
     slug: 'fr',
     dir: 'ltr',
-    name: 'Français',
   },
 ] as const;
 

@@ -4,23 +4,23 @@ import { ArrowUpRight } from 'lucide-react';
 export const items: NavigationList = [
   [
     {
-      label: 'Home',
+      key: 'home',
       href: '/',
     },
     {
-      label: 'Resume',
+      key: 'resume',
       href: '/resume',
       disabled: true,
     },
     {
-      label: 'Blog',
+      key: 'blog',
       href: '/blog',
       disabled: true,
     },
   ],
   [
     {
-      label: 'Contact me',
+      key: 'contact',
       href: 'mailto:contact@pierregueroult.dev',
       icon: {
         icon: ArrowUpRight,

@@ -1,1 +1,40 @@
-{}
+{
+  "ThemeSelect": {
+    "label": "Selectionner un thème",
+    "options": {
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    }
+  },
+  "SettingsPopover": {
+    "theme": {
+      "label": "Changer de thème",
+      "description": "Plus de thèmes sont à venir."
+    },
+    "language": {
+      "label": "Changer de langue",
+      "description": "Plus de langues sont à venir."
+    },
+    "dislexia": {
+      "label": "Activer le mode dyslexique",
+      "description": "Changer la police pour la rendre plus lisible."
+    }
+  },
+  "LocaleSelect": {
+    "label": "Selectionner une langue",
+    "options": {
+      "en": "English",
+      "fr": "Français"
+    }
+  },
+  "NavigationBar": {
+    "menu": "Ouvrir le menu"
+  },
+  "NavigationNode": {
+    "home": "Accueil",
+    "resume": "CV",
+    "blog": "Blog",
+    "contact": "Contactez-moi"
+  }
+}

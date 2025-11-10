@@ -13,12 +13,14 @@ import {
 } from '@repo/ui/components/field';
 import { ThemeSelect } from '@/features/themes/components/select';
 import { LocaleSelect } from '@/features/internationalization/components/select';
+import { useTranslations } from 'next-intl';
 
 type SettingsPopoverProps = {
   children: ReactNode;
 };
 
 export function SettingsPopover({ children }: SettingsPopoverProps) {
+  const t = useTranslations('SettingsPopover');
   return (
     <Popover>
       <PopoverTrigger asChild={true}>{children}</PopoverTrigger>
@@ -30,24 +32,24 @@ export function SettingsPopover({ children }: SettingsPopoverProps) {
         <FieldSet className="w-full gap-3">
           <Field orientation="horizontal">
             <FieldContent className="gap-1">
-              <FieldLabel>Change theme</FieldLabel>
-              <FieldDescription>More themes are coming soon.</FieldDescription>
+              <FieldLabel>{t('theme.label')}</FieldLabel>
+              <FieldDescription>{t('theme.description')}</FieldDescription>
             </FieldContent>
             <ThemeSelect />
           </Field>
           <FieldSeparator />
           <Field orientation="horizontal">
             <FieldContent className="gap-1">
-              <FieldLabel>Change language</FieldLabel>
-              <FieldDescription>More languages are coming soon.</FieldDescription>
+              <FieldLabel>{t('language.label')}</FieldLabel>
+              <FieldDescription>{t('language.description')}</FieldDescription>
             </FieldContent>
             <LocaleSelect />
           </Field>
           <FieldSeparator />
           <Field orientation="horizontal">
             <FieldContent className="gap-1">
-              <FieldLabel htmlFor="font">Toggle dislexia mode</FieldLabel>
-              <FieldDescription>Change the font to make it easier to read.</FieldDescription>
+              <FieldLabel htmlFor="font">{t('dislexia.label')}</FieldLabel>
+              <FieldDescription>{t('dislexia.description')}</FieldDescription>
             </FieldContent>
             <FontSwitch id="font" />
           </Field>

@@ -3,6 +3,7 @@ import { Link } from '@/features/internationalization/lib/navigation';
 import { Button, buttonVariants } from '@repo/ui/components/button';
 import { Separator } from '@repo/ui/components/separator';
 import { cn } from '@repo/ui/lib/utils';
+import { useTranslations } from 'next-intl';
 
 type NavigationNodeProps = {
   node: NavigationItem | NavigationList;
@@ -11,6 +12,7 @@ type NavigationNodeProps = {
 };
 
 export function NavigationNode({ node, depth, className }: NavigationNodeProps) {
+  const t = useTranslations('NavigationNode');
   if (depth > 3) return null;
 
   if (Array.isArray(node)) {
@@ -39,7 +41,7 @@ export function NavigationNode({ node, depth, className }: NavigationNodeProps) 
       {node.disabled ? (
         <Button disabled={true} variant="outline" className="w-full @min-[406px]/w-auto">
           {node.icon && node.icon.position === 'left' && <node.icon.icon />}
-          {node.label}
+          {t(node.key as any)}
           {node.icon && node.icon.position === 'right' && <node.icon.icon />}
         </Button>
       ) : (
@@ -48,7 +50,7 @@ export function NavigationNode({ node, depth, className }: NavigationNodeProps) 
           className={cn(buttonVariants({ variant: 'outline' }), 'w-full @min-[406px]/w-auto')}
         >
           {node.icon && node.icon.position === 'left' && <node.icon.icon />}
-          {node.label}
+          {t(node.key as any)}
           {node.icon && node.icon.position === 'right' && <node.icon.icon />}
         </Link>
       )}

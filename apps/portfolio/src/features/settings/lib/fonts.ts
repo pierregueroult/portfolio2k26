@@ -1,14 +1,9 @@
-import { JetBrains_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
 import { FontType } from '../types/fonts';
 
-export const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
-  display: 'swap',
-  preload: true,
-});
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 
 export const openDyslexic = localFont({
   src: [
@@ -32,3 +27,5 @@ export async function readFontFromCookies(): Promise<FontType> {
   const store = await cookies();
   return (store.get('font')?.value as FontType) || 'default';
 }
+
+export const fonts = `${GeistSans.variable} ${GeistMono.variable} ${openDyslexic.variable}`;

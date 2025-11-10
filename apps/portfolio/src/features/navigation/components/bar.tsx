@@ -8,8 +8,10 @@ import { NavigationNode } from '@/features/navigation/components/node';
 import { renderBlurProps } from '@/features/navigation/lib/blur';
 import { SettingsPopover } from '@/features/settings/components/settings';
 import { cn } from '@repo/ui/lib/utils';
+import { useTranslations } from 'next-intl';
 
 export function NavigationBar() {
+  const t = useTranslations('NavigationBar');
   return (
     <header className="w-full flex items-center justify-center fixed z-1000 top-4 md:bottom-8 md:top-auto @container/header">
       <div className="container flex items-center justify-center md:justify-between flex-wrap">
@@ -27,7 +29,12 @@ export function NavigationBar() {
         >
           <li className="self-stretch flex items-center gap-2 justify-between @min-[406px]/header:justify-center">
             <p className="mx-1.5">pierregueroult.dev</p>
-            <label className="flex @min-[406px]/header:hidden" htmlFor="mobile-menu">
+            <label
+              className="flex @min-[406px]/header:hidden"
+              role="button"
+              htmlFor="mobile-menu"
+              aria-label={t('menu')}
+            >
               <span
                 className={cn(
                   buttonVariants({ variant: 'outline', size: 'icon-sm' }),

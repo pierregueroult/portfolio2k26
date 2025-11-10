@@ -3,7 +3,7 @@ import { Component, ComponentType, SVGProps } from 'react';
 type NavIconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
 export type NavigationItem = {
-  label: string;
+  key: string;
   href: string;
   icon?: {
     icon: NavIconComponent;
