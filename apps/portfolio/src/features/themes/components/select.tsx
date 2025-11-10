@@ -1,4 +1,6 @@
 'use client';
+import { type ComponentProps } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Select,
   SelectContent,
@@ -6,10 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@repo/ui/components/select';
-import { useTheme } from '../hooks/use-theme';
-import { ComponentProps } from 'react';
-import { useTranslations } from 'next-intl';
-import { themes } from '../types/theme';
+import { useTheme } from '@/features/themes/hooks/use-theme';
+import { type Theme, themes } from '@/features/themes/types/theme';
 
 type ThemeSelectProps = Omit<ComponentProps<typeof Select>, 'value' | 'onChange'>;
 

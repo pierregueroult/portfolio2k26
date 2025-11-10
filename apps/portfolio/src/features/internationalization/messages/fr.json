@@ -36,5 +36,12 @@
     "resume": "CV",
     "blog": "Blog",
     "contact": "Contactez-moi"
+  },
+  "LocaleLayout": {
+    "metadata": {
+      "title": "TEMP",
+      "description": "TEMP",
+      "keywords": "temp, temp, temp, temp"
+    }
   }
 }

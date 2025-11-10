@@ -39,6 +39,13 @@ declare const messages: {
     "resume": "Resume",
     "blog": "Blog",
     "contact": "Contact Me"
+  },
+  "LocaleLayout": {
+    "metadata": {
+      "title": "TEMP",
+      "description": "TEMP",
+      "keywords": "temp, temp, temp, temp"
+    }
   }
 };
 export default messages;

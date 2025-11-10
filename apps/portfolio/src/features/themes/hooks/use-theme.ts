@@ -14,7 +14,10 @@ export const useTheme = (): UseThemeReturn => {
   const { theme: rawTheme, setTheme: setRawTheme } = useThemeRaw();
 
   const theme = isTheme(rawTheme) ? rawTheme : undefined;
-  const setTheme = (value: Theme) => setRawTheme(value);
+  const setTheme = (value: Theme) => {
+    document.cookie = `theme=${value}; path=/; max-age=31536000`;
+    setRawTheme(value);
+  };
 
   return {
     theme,

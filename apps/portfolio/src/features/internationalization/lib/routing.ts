@@ -12,6 +12,7 @@ export const locales = [
 ] as const;
 
 export type Locale = (typeof locales)[number]['slug'];
+export type LocaleWithDetails = (typeof locales)[number];
 
 export const localesSlugs: readonly Locale[] = locales.map((l) => l.slug) as readonly Locale[];
 
