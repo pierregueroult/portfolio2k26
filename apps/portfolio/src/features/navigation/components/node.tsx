@@ -29,7 +29,7 @@ export function NavigationNode({ node, depth, className }: NavigationNodeProps) 
             <NavigationNode key={i} node={child} depth={depth + 1} />
           ))}
         </ul>
-        <Separator orientation="vertical" className="hidden @min-[406px]/box" />
+        <Separator orientation="vertical" className="hidden @min-[406px]/header:block" />
       </li>
     );
   }
