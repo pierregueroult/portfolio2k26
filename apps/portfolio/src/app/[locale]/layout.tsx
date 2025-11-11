@@ -6,6 +6,7 @@ import { I18nProvider } from '@/features/internationalization/components/provide
 import { assertValidLocaleFromParams } from '@/features/internationalization/lib/utils';
 import { fonts, readFontFromCookies } from '@/features/settings/lib/fonts';
 import { readThemeFromCookies } from '@/features/themes/lib/theme';
+import { MeStructuredData } from '@/features/search-engines/components/me-strutured-data';
 
 export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Promise<Metadata> {
   const locale = await assertValidLocaleFromParams(params);
@@ -30,6 +31,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
 
   return (
     <html lang={locale.slug} dir={locale.dir} suppressHydrationWarning>
+      <head>
+        <MeStructuredData />
+      </head>
       <body className={`font-sans antialiased ${fonts}`} data-font={font}>
         <ThemeProvider>
           <I18nProvider>{children}</I18nProvider>

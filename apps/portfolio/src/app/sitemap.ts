@@ -1,18 +1,17 @@
 import type { MetadataRoute } from 'next';
 import { getPathname } from '@/features/internationalization/lib/navigation';
-
-const host = 'https://pierregueroult.dev';
+import { SITE_BASE_URL } from '@/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: host,
+      url: SITE_BASE_URL,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
       alternates: {
         languages: {
-          fr: host + getPathname({ locale: 'fr', href: '/' }),
+          fr: SITE_BASE_URL + getPathname({ locale: 'fr', href: '/' }),
         },
       },
     },
