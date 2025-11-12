@@ -19,10 +19,32 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
   };
 }
 
-export async function generateViewPort({ params }: LayoutProps<'/[locale]'>): Promise<Viewport> {
+/* layout.tsx */
+export async function generateViewport({ params }: LayoutProps<'/[locale]'>): Promise<Viewport> {
   const theme = await readThemeFromCookies();
 
-  return {};
+  const COLORS = {
+    light: '#f5f5f5',
+    dark: '#262626',
+  };
+
+  if (!theme || theme === 'system') {
+    return {
+      themeColor: [
+        { color: COLORS.light, media: '(prefers-color-scheme: light)' },
+        { color: COLORS.dark, media: '(prefers-color-scheme: dark)' },
+      ],
+    };
+  }
+
+  const color = COLORS[theme];
+  return {
+    themeColor: [
+      { color, media: '(prefers-color-scheme: light)' },
+      { color, media: '(prefers-color-scheme: dark)' },
+    ],
+    colorScheme: theme === 'light' ? 'light' : 'dark',
+  };
 }
 
 export default async function LocaleLayout({ children, params }: LayoutProps<'/[locale]'>) {
