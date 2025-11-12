@@ -1,11 +1,10 @@
-import { HandFistIcon, LaptopIcon, SquareCheckIcon } from 'lucide-react';
+import { CodeXmlIcon, HandFistIcon, LaptopIcon } from 'lucide-react';
 import Image from 'next/image';
 
 const elements = [
   { label: 'Lifting', icon: <HandFistIcon /> },
   { label: 'Engineering', icon: <LaptopIcon /> },
-  { label: 'Coding', icon: <SquareCheckIcon /> },
-  { label: 'Driving', icon: <SquareCheckIcon /> },
+  { label: 'Coding', icon: <CodeXmlIcon /> },
 ];
 
 export default function Page() {
@@ -24,10 +23,10 @@ export default function Page() {
           <p className="text-md text-right font-medium -mt-2">
             Currently working at{' '}
             <a
-              href="https://altelis.com"
+              href="https://altelis.com?source=pierregueroult.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative after:absolute bottom-0 w-full h-px bg-foreground left-0"
+              className="relative after:absolute after:-bottom-px after:w-19/20 after:h-px after:bg-foreground after:left-1/40"
             >
               <Image
                 src="/logos/altelis.png"
