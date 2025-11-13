@@ -1,0 +1,19 @@
+services:
+  portfolio:
+    container_name: portfolio-container
+    restart: always
+    build:
+      context: .
+      dockerfile: apps/portfolio/Dockerfile
+    ports:
+      - "3000:3000"
+
+  blog:
+    container_name: blog-container
+    restart: always
+    build:
+      context: .
+      dockerfile: packages/content/Dockerfile
+    environment:
+      - COOLIFY_WEBHOOK=${COOLIFY_WEBHOOK}
+      - COOLIFY_TOKEN=${COOLIFY_TOKEN}
