@@ -9,7 +9,8 @@
     "dev": "NODE_ENV=development nest start --watch",
     "start:prod": "NODE_ENV=production node dist/main",
     "lint": "eslint --fix .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.8",

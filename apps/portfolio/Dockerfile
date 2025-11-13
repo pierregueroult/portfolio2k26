@@ -9,6 +9,7 @@ COPY . .
 RUN turbo prune portfolio --docker
 
 FROM base AS installer
+
 RUN apk update && apk add --no-cache libc6-compat
 WORKDIR /app
 RUN npm install -g pnpm
@@ -18,6 +19,7 @@ COPY --from=builder /app/out/full .
 RUN pnpm build
 
 FROM base AS runner
+
 WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
