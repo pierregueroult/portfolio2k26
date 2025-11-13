@@ -1,0 +1,29 @@
+{
+  "name": "main-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "NODE_ENV=production nest build",
+    "start": "NODE_ENV=production nest start",
+    "dev": "NODE_ENV=development nest start --watch",
+    "start:prod": "NODE_ENV=production node dist/main",
+    "lint": "eslint --fix .",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.8",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^11.1.8",
+    "@nestjs/platform-express": "^11.1.8",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "cookie-parser": "^1.4.7"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/cookie-parser": "^1.4.10"
+  }
+}
