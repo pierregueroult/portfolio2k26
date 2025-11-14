@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@repo/ui'],
   output: 'standalone',
+  experimental: {
+    authInterrupts: true,
+    browserDebugInfoInTerminal: true,
+  },
 };
 
 const withNextIntl = createNextIntlPlugin({

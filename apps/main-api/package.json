@@ -17,10 +17,11 @@
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.8",
     "@nestjs/platform-express": "^11.1.8",
+    "@repo/content": "workspace:*",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "cookie-parser": "^1.4.7",
-    "@repo/content": "workspace:*"
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
