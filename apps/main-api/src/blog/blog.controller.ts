@@ -1,4 +1,10 @@
-import { Controller, Get, Param, UnauthorizedException } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  NotImplementedException,
+  Param,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { BlogService } from "./blog.service";
 import { get } from "node:https";
 
@@ -21,6 +27,19 @@ export class BlogController {
       data,
       stats,
     };
+  }
+
+  @Get("image/*param")
+  async getImage(@Param("param") param: string) {
+    const path = this.blogService.convertParamToPath(param);
+
+    // TODO: Implement image retrieval logic
+    throw new NotImplementedException();
+  }
+
+  @Get("images")
+  async getAllImagesDictionary() {
+    return this.blogService.getAllImagesDictionary();
   }
 
   @Get("paths")

@@ -1,4 +1,4 @@
-import { dirname, relative, resolve } from "node:path";
+import { basename, dirname, relative, resolve } from "node:path";
 import { readdir, readFile, stat } from "node:fs/promises";
 import type { Stats } from "node:fs";
 
@@ -58,26 +58,56 @@ export class BlogService {
     const dir = this.resolveContentDirectory();
     const blogDir = resolve(dir, "blog");
 
-    return await this.readDirectoryRecursively(blogDir, blogDir);
+    return await this.readDirectoryRecursively(blogDir, blogDir, [".md"], true);
+  }
+
+  async getAllImagesDictionary() {
+    const dir = this.resolveContentDirectory();
+    const blogDir = resolve(dir, "blog");
+
+    const images = await this.readDirectoryRecursively(
+      blogDir,
+      blogDir,
+      [".jpg", ".jpeg", ".png", ".gif", ".webp"],
+      false,
+    );
+
+    return Object.freeze(
+      Object.fromEntries(images.map((img) => [basename(img), img] as const)),
+    );
   }
 
   private async readDirectoryRecursively(
     dir: string,
     rootDir: string,
+    extensions: string[],
+    removeExtension = true,
   ): Promise<string[]> {
     const entries = await readdir(dir, { withFileTypes: true });
     const results: string[] = [];
     const subdirPromises: Promise<string[]>[] = [];
 
     for (const entry of entries) {
-      if (entry.isFile() && entry.name.toLowerCase().endsWith(".md")) {
+      const extension = entry.name.toLowerCase().split(".").pop();
+      if (entry.isFile() && extensions.includes(`.${extension}`)) {
         const relativePath = relative(rootDir, resolve(dir, entry.name));
-        results.push(
-          relativePath.slice(0, -3).toLowerCase().replaceAll(" ", "-"),
-        );
+        const slug = (
+          removeExtension
+            ? relativePath.replace(/\.[^./\\]+$/u, "")
+            : relativePath
+        )
+          .toLowerCase()
+          .replaceAll(" ", "-");
+
+        results.push(slug);
       } else if (entry.isDirectory()) {
         subdirPromises.push(
-          this.readDirectoryRecursively(resolve(dir, entry.name), rootDir),
+          this.readDirectoryRecursively(
+            resolve(dir, entry.name),
+            rootDir,
+            extensions,
+            removeExtension,
+          ),
         );
       }
     }
