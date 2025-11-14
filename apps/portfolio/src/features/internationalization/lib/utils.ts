@@ -1,5 +1,10 @@
 import { notFound } from 'next/navigation';
-import { Locale, routing } from '@/features/internationalization/lib/routing';
+import {
+  Locale,
+  locales,
+  LocaleWithDetails,
+  routing,
+} from '@/features/internationalization/lib/routing';
 
 export function isValidLocale(locale: string | undefined): locale is Locale {
   return !!locale && routing.locales.includes(locale as Locale);
@@ -7,10 +12,9 @@ export function isValidLocale(locale: string | undefined): locale is Locale {
 
 export async function assertValidLocaleFromParams(
   paramsPromise: Promise<{ locale?: string }>,
-): Promise<Locale> {
+): Promise<LocaleWithDetails> {
   const { locale } = await paramsPromise;
-  if (!isValidLocale(locale)) notFound();
-  return locale!;
+  return locales.find((l) => l.slug === locale) || notFound();
 }
 
 export function generateStaticParams() {
