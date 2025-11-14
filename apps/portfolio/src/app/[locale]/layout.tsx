@@ -19,8 +19,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
   };
 }
 
-/* layout.tsx */
-export async function generateViewport({ params }: LayoutProps<'/[locale]'>): Promise<Viewport> {
+export async function generateViewport(): Promise<Viewport> {
   const theme = await readThemeFromCookies();
 
   const COLORS = {

@@ -43,5 +43,18 @@
       "description": "TEMP",
       "keywords": "temp, temp, temp, temp"
     }
+  },
+  "HomePage": {
+    "comingSoon": "Le reste du site web est en cours de développement !!!"
+  },
+
+  "Header": {
+    "titlePart1": "Bosser dur, automatiser et étudier pour devenir",
+    "titlePart2": "Ingénieur logiciel",
+    "workingAt": "Je travaille actuellement chez ",
+    "workLabel": "Logo de l'entreprise Altelis",
+    "lifting": "Musculation",
+    "engineering": "Ingénierie",
+    "coding": "Codage"
   }
 }

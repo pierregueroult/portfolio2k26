@@ -46,6 +46,18 @@ declare const messages: {
       "description": "TEMP",
       "keywords": "temp, temp, temp, temp"
     }
+  },
+  "HomePage": {
+    "comingSoon": "The rest of the website is coming soon !!!"
+  },
+  "Header": {
+    "titlePart1": "Grinding, automating, and studying to become a",
+    "titlePart2": "Software engineer",
+    "workingAt": "Currently working at ",
+    "workLabel": "Altelis company's logo",
+    "lifting": "Lifting",
+    "engineering": "Engineering",
+    "coding": "Coding"
   }
 };
 export default messages;
