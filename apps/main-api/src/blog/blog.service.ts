@@ -1,13 +1,16 @@
-import { basename, dirname, relative, resolve } from "node:path";
+import { basename, dirname, join, relative, resolve } from "node:path";
 import { readdir, readFile, stat } from "node:fs/promises";
-import type { Stats } from "node:fs";
+import { type ReadStream, type Stats, createReadStream, existsSync } from "node:fs";
 
 import {
+  HttpException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
 import matter from "gray-matter";
+import { lookup } from "mime-types";
 
 @Injectable()
 export class BlogService {
@@ -33,6 +36,33 @@ export class BlogService {
       };
     } catch (error) {
       throw new NotFoundException(`Markdown file not found: ${path}`);
+    }
+  }
+
+  async readImageFile(path: string): Promise<{
+      stream: ReadStream;
+      mime: string;
+  }> {
+    const dir = this.resolveContentDirectory();
+    const filePath = join(dir, "blog", path);
+
+    if(!existsSync(filePath)) {
+      throw new NotFoundException(`Image file not found: ${path}`);
+    }
+
+    const mime = lookup(filePath) || 'application/octet-stream';
+
+    try {
+      const stream = createReadStream(filePath);
+
+      stream.on("error", () => {
+        throw new InternalServerErrorException('Error reading file')
+      });
+
+      return { stream, mime };
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      throw new InternalServerErrorException(`Error reading file: ${message}`)
     }
   }
 

@@ -1,6 +1,7 @@
 import type { Plugin } from 'unified';
 import type { Root, Text, Image, PhrasingContent, Parent } from 'mdast';
 import { visit, SKIP } from 'unist-util-visit';
+import { slugifyPath } from './slugify-path';
 
 type Options = {
   prefix?: string;
@@ -44,7 +45,6 @@ export const remarkWikiImage: Plugin<[Options?], Root> = (options?: Options) => 
       let cursor = 0;
 
       for (const p of parts) {
-        // Add text before the wiki image
         if (p.start > cursor) {
           newChildren.push({
             type: 'text',
@@ -52,8 +52,8 @@ export const remarkWikiImage: Plugin<[Options?], Root> = (options?: Options) => 
           });
         }
 
-        // Resolve the image path
-        const rawPath = p.path.trim();
+        const rawPath = slugifyPath(p.path.trim());
+
         const resolvedPath = dictionary[rawPath] ?? rawPath;
         const alt = p.alt?.trim() ?? rawPath;
         const url = prefix + encodeURI(resolvedPath);

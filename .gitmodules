@@ -1,3 +1,3 @@
 [submodule "packages/content/blog"]
 	path = packages/content/blog
-	url = git@github.com:pierregueroult/notes-public.git
+	url = https://github.com/pierregueroult/notes-public.git

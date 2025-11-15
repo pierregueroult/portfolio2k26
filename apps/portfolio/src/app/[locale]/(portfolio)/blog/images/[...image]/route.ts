@@ -1,3 +1,4 @@
+import { getArticleImageBySlug } from '@/features/blog/services/content';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
@@ -6,6 +7,13 @@ export async function GET(
 ) {
   const { image } = await params;
 
-  // TODO: Implement image retrieval logic
-  throw new Error('Image retrieval logic not implemented');
+  const { readable, contentType, cacheControl } = await getArticleImageBySlug(image);
+
+  return new NextResponse(readable, {
+    status: 200,
+    headers: {
+      'Content-Type': contentType,
+      'Cache-Control': cacheControl,
+    },
+  });
 }

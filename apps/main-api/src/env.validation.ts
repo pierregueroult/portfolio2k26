@@ -23,8 +23,7 @@ class EnvironmentVariables {
   @Max(65535)
   NEST_PORT: number;
 
-  @IsUrl()
-  @Matches(/https?:\/\//)
+  @IsUrl({ require_tld: false})
   NEST_CORS_ORIGIN: string;
 }
 

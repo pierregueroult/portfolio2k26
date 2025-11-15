@@ -1,12 +1,12 @@
 import {
   Controller,
   Get,
-  NotImplementedException,
   Param,
-  UnauthorizedException,
+  Res,
 } from "@nestjs/common";
 import { BlogService } from "./blog.service";
-import { get } from "node:https";
+
+import type { Response } from "express";
 
 @Controller("blog")
 export class BlogController {
@@ -30,11 +30,14 @@ export class BlogController {
   }
 
   @Get("image/*param")
-  async getImage(@Param("param") param: string) {
+  async getImage(@Param("param") param: string, @Res() res: Response) {
     const path = this.blogService.convertParamToPath(param);
 
-    // TODO: Implement image retrieval logic
-    throw new NotImplementedException();
+    const { stream, mime } = await this.blogService.readImageFile(path);
+
+    res.setHeader('Content-Type', mime);
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    stream.pipe(res);
   }
 
   @Get("images")
