@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "format": "prettier '**/*' '!dist/**' '!.next/**' '!.turbo/**' --write"
+    "format": "prettier --write '**/*.{ts,tsx,json,css}'"
   },
   "dependencies": {
     "@excalidraw/excalidraw": "^0.18.0",

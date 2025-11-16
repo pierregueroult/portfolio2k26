@@ -1,33 +1,30 @@
-import {
-  Controller,
-  Get,
-  NotImplementedException,
-  Param,
-  Res,
-} from "@nestjs/common";
-import { BlogService } from "./blog.service";
+import { Controller, Get, NotImplementedException, Param, Res } from '@nestjs/common';
+import { BlogService } from './blog.service';
 
-import type { Response } from "express";
-import { ExcalidrawService } from "./excalidraw/excalidraw.service";
-import { ArticleResponse } from "@repo/database/dtos/blog/article";
-import { GetAllImagesResponse } from "@repo/database/dtos/blog/image";
+import type { Response } from 'express';
+import { ExcalidrawService } from './excalidraw/excalidraw.service';
+import { ArticleResponse } from '@repo/database/dtos/blog/article';
+import { GetAllImagesResponse } from '@repo/database/dtos/blog/image';
 
-@Controller("blog")
+@Controller('blog')
 export class BlogController {
-  constructor(private readonly blogService: BlogService, private readonly excalidrawService: ExcalidrawService) {}
+  constructor(
+    private readonly blogService: BlogService,
+    private readonly excalidrawService: ExcalidrawService,
+  ) {}
 
-  @Get("article/*param")
-  async getArticleBySlug(@Param("param") param: string): Promise<ArticleResponse> {
+  @Get('article/*param')
+  async getArticleBySlug(@Param('param') param: string): Promise<ArticleResponse> {
     const path = this.blogService.convertParamToPath(param);
 
-    const { content: rawContent, stats } =
-      await this.blogService.readMarkdownFile(path);
+    const { content: rawContent, stats } = await this.blogService.readMarkdownFile(path);
 
-    const { content, data } =
-      await this.blogService.extractFrontMatterFromContent(rawContent);
+    const { content, data } = await this.blogService.extractFrontMatterFromContent(rawContent);
 
-    if(data.tags && data.tags.includes('excalidraw')) {
-      const excalidraw = this.excalidrawService.decompressDrawing(this.excalidrawService.getCompressedJson(content));
+    if (data.tags && data.tags.includes('excalidraw')) {
+      const excalidraw = this.excalidrawService.decompressDrawing(
+        this.excalidrawService.getCompressedJson(content),
+      );
 
       return {
         stats,
@@ -35,21 +32,21 @@ export class BlogController {
         type: 'excalidraw',
         drawing: {
           json: excalidraw,
-          content: content
-        }
-      }
+          content: content,
+        },
+      };
     }
 
     return {
       stats,
       frontmatter: data,
       type: 'markdown',
-      content
+      content,
     };
   }
 
-  @Get("image/*param")
-  async getImage(@Param("param") param: string, @Res() res: Response) {
+  @Get('image/*param')
+  async getImage(@Param('param') param: string, @Res() res: Response) {
     const path = this.blogService.convertParamToPath(param);
 
     const { stream, mime } = await this.blogService.readImageFile(path);
@@ -59,12 +56,12 @@ export class BlogController {
     stream.pipe(res);
   }
 
-  @Get("images")
+  @Get('images')
   async getAllImagesDictionary(): Promise<GetAllImagesResponse> {
     return this.blogService.getAllImagesDictionary();
   }
 
-  @Get("paths")
+  @Get('paths')
   async getAllArticlePaths() {
     return this.blogService.getAllArticlePaths();
   }

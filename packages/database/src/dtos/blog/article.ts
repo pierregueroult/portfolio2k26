@@ -1,6 +1,6 @@
-import type { Stats } from "node:fs";
-import type { FrontMatter } from "../../schemas/blog/front-matter";
-import type { ExcalidrawJson } from "../../schemas/blog/excalidraw";
+import type { Stats } from 'node:fs';
+import type { FrontMatter } from '../../schemas/blog/front-matter';
+import type { ExcalidrawJson } from '../../schemas/blog/excalidraw';
 
 interface ArticleResponseBase {
   stats: Stats;
@@ -9,7 +9,7 @@ interface ArticleResponseBase {
 
 interface ArticleMarkdownResponse extends ArticleResponseBase {
   content: string;
-  type: "markdown";
+  type: 'markdown';
 }
 
 interface ArticleExcalidrawResponse extends ArticleResponseBase {
@@ -17,9 +17,7 @@ interface ArticleExcalidrawResponse extends ArticleResponseBase {
     json: ExcalidrawJson;
     content: string;
   };
-  type: "excalidraw";
+  type: 'excalidraw';
 }
 
-export type ArticleResponse =
-  | ArticleMarkdownResponse
-  | ArticleExcalidrawResponse;
+export type ArticleResponse = ArticleMarkdownResponse | ArticleExcalidrawResponse;

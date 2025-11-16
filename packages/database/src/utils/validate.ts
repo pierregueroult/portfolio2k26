@@ -1,5 +1,5 @@
-import { plainToInstance } from "class-transformer";
-import { validate as validateClass } from "class-validator";
+import { plainToInstance } from 'class-transformer';
+import { validate as validateClass } from 'class-validator';
 
 type ValidateReturnError = {
   errors: string[];
@@ -9,9 +9,7 @@ type ValidateReturnSuccess<T extends object> = {
   data: T;
 };
 
-type ValidateReturn<T extends object> =
-  | ValidateReturnError
-  | ValidateReturnSuccess<T>;
+type ValidateReturn<T extends object> = ValidateReturnError | ValidateReturnSuccess<T>;
 
 export async function validate<T extends object>(
   cls: new () => T,
@@ -37,7 +35,5 @@ export async function validate<T extends object>(
     forbidNonWhitelisted: options.forbidNonWhitelisted,
   });
 
-  return errors.length
-    ? { errors: errors.map((error) => error.toString()) }
-    : { data: instance };
+  return errors.length ? { errors: errors.map((error) => error.toString()) } : { data: instance };
 }

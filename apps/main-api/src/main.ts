@@ -1,15 +1,15 @@
-import { NestFactory } from "@nestjs/core";
-import { ValidationPipe } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import cookieParser from "cookie-parser";
-import { AppModule } from "./app.module";
+import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import cookieParser from 'cookie-parser';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
 
   app.enableCors({
-    origin: config.get<string>("NEST_CORS_ORIGIN"),
+    origin: config.get<string>('NEST_CORS_ORIGIN'),
     credentials: true,
   });
   app.use(cookieParser());
@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(config.get<number>("NEST_PORT"));
+  await app.listen(config.get<number>('NEST_PORT'));
 }
 
 void bootstrap();

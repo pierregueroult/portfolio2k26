@@ -75,6 +75,9 @@ importers:
       '@types/mime-types':
         specifier: ^3.0.1
         version: 3.0.1
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
 
   apps/portfolio:
     dependencies:
@@ -196,6 +199,9 @@ importers:
       '@types/node':
         specifier: ^20.19.9
         version: 20.19.9
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

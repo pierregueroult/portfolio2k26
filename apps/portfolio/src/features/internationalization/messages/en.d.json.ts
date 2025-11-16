@@ -2,50 +2,50 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-  "ThemeSelect": {
-    "label": "Select Theme",
-    "options": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    }
-  },
-  "SettingsPopover": {
-    "theme": {
-      "label": "Change theme",
-      "description": "More themes are coming soon."
-    },
-    "language": {
-      "label": "Change language",
-      "description": "More languages are coming soon."
-    },
-    "dislexia": {
-      "label": "Toggle dislexia mode",
-      "description": "Change the font to make it easier to read."
-    }
-  },
-  "LocaleSelect": {
-    "label": "Select Language",
-    "options": {
-      "en": "English",
-      "fr": "Français"
-    }
-  },
-  "NavigationBar": {
-    "menu": "Toggle menu"
-  },
-  "NavigationNode": {
-    "home": "Home",
-    "resume": "Resume",
-    "blog": "Blog",
-    "contact": "Contact Me"
-  },
-  "LocaleLayout": {
-    "metadata": {
-      "title": "TEMP",
-      "description": "TEMP",
-      "keywords": "temp, temp, temp, temp"
-    }
-  }
+  ThemeSelect: {
+    label: 'Select Theme';
+    options: {
+      light: 'Light';
+      dark: 'Dark';
+      system: 'System';
+    };
+  };
+  SettingsPopover: {
+    theme: {
+      label: 'Change theme';
+      description: 'More themes are coming soon.';
+    };
+    language: {
+      label: 'Change language';
+      description: 'More languages are coming soon.';
+    };
+    dislexia: {
+      label: 'Toggle dislexia mode';
+      description: 'Change the font to make it easier to read.';
+    };
+  };
+  LocaleSelect: {
+    label: 'Select Language';
+    options: {
+      en: 'English';
+      fr: 'Français';
+    };
+  };
+  NavigationBar: {
+    menu: 'Toggle menu';
+  };
+  NavigationNode: {
+    home: 'Home';
+    resume: 'Resume';
+    blog: 'Blog';
+    contact: 'Contact Me';
+  };
+  LocaleLayout: {
+    metadata: {
+      title: 'TEMP';
+      description: 'TEMP';
+      keywords: 'temp, temp, temp, temp';
+    };
+  };
 };
 export default messages;

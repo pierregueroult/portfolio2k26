@@ -1,17 +1,9 @@
-import { plainToInstance } from "class-transformer";
-import {
-  IsEnum,
-  IsNumber,
-  IsUrl,
-  Matches,
-  Max,
-  Min,
-  validateSync,
-} from "class-validator";
+import { plainToInstance } from 'class-transformer';
+import { IsEnum, IsNumber, IsUrl, Matches, Max, Min, validateSync } from 'class-validator';
 
 enum Environment {
-  Development = "development",
-  Production = "production",
+  Development = 'development',
+  Production = 'production',
 }
 
 class EnvironmentVariables {
@@ -23,13 +15,11 @@ class EnvironmentVariables {
   @Max(65535)
   NEST_PORT: number;
 
-  @IsUrl({ require_tld: false})
+  @IsUrl({ require_tld: false })
   NEST_CORS_ORIGIN: string;
 }
 
-export function validateEnvironment(
-  config: Record<string, unknown>,
-): EnvironmentVariables {
+export function validateEnvironment(config: Record<string, unknown>): EnvironmentVariables {
   const validateConfig = plainToInstance(EnvironmentVariables, config, {
     enableImplicitConversion: true,
   });
