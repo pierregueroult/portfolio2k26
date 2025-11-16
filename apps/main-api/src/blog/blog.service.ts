@@ -1,8 +1,11 @@
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { type ReadStream, type Stats, createReadStream, existsSync } from "node:fs";
+import { FrontMatter } from "@repo/database/schemas/blog/front-matter";
+import { validate } from "@repo/database/utils/validate";
 
 import {
+  BadRequestException,
   HttpException,
   Injectable,
   InternalServerErrorException,
@@ -71,17 +74,24 @@ export class BlogService {
     return dirname(packageJsonPath);
   }
 
-  extractFrontMatterFromContent(markdown: string): {
+  async extractFrontMatterFromContent(markdown: string): Promise<{
     content: string;
-    data: Record<string, unknown>;
-  } {
+    data: FrontMatter;
+  }> {
     const result = matter(markdown);
 
     if (!result.data.visibility || result.data.visibility !== "public") {
       throw new UnauthorizedException("This article is not public");
     }
 
-    return result;
+    const validated = await validate<FrontMatter>(FrontMatter, result.data, { whitelist: false});
+
+    if(!('data' in validated)) {
+
+      throw new BadRequestException(`'Invalid front matter : ${validated.errors.join(', ')}`);
+    }
+
+    return { content: result.content, data: validated.data };
   }
 
   async getAllArticlePaths() {

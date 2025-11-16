@@ -1,0 +1,63 @@
+.excalidraw-container .App-menu_bottom {
+  bottom: 6.5rem !important;
+  padding: 0 !important;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  [aria-label='Help'],
+  .zoom-actions {
+    backdrop-filter: blur(8px) saturate(2.8) brightness(1.25) contrast(1);
+    box-shadow: none !important;
+
+    border: 4px #00000010 solid;
+
+    &:is([aria-label='Help']) {
+      height: 44px;
+      width: 44px;
+    }
+
+    background: linear-gradient(hsl(0 0% 98%) 0 100%) padding-box padding-box;
+
+    @media (prefers-color-scheme: dark) {
+      background: linear-gradient(hsl(0 0% 12%) 0 100%) padding-box padding-box;
+    }
+
+    button {
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+  }
+
+  @media (min-width: 40rem) {
+    max-width: 40rem;
+  }
+
+  @media (min-width: 48rem) {
+    max-width: 48rem;
+  }
+
+  @media (min-width: 64rem) {
+    max-width: 64rem;
+  }
+
+  @media (min-width: 80rem) {
+    max-width: 80rem;
+  }
+
+  @media (min-width: 96rem) {
+    max-width: 96rem;
+  }
+}
+
+.light .excalidraw-container .App-menu_bottom [aria-label='Help'],
+.light .excalidraw-container .App-menu_bottom .zoom-actions {
+  background: linear-gradient(hsl(0 0% 98%) 0 100%) padding-box padding-box !important;
+  border-color: #00000010 !important;
+}
+
+.dark .excalidraw-container .App-menu_bottom [aria-label='Help'],
+.dark .excalidraw-container .App-menu_bottom .zoom-actions {
+  background: linear-gradient(hsl(0 0% 12%) 0 100%) padding-box padding-box !important;
+  border-color: #ffffff1a !important;
+}

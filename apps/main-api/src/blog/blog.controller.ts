@@ -1,31 +1,50 @@
 import {
   Controller,
   Get,
+  NotImplementedException,
   Param,
   Res,
 } from "@nestjs/common";
 import { BlogService } from "./blog.service";
 
 import type { Response } from "express";
+import { ExcalidrawService } from "./excalidraw/excalidraw.service";
+import { ArticleResponse } from "@repo/database/dtos/blog/article";
+import { GetAllImagesResponse } from "@repo/database/dtos/blog/image";
 
 @Controller("blog")
 export class BlogController {
-  constructor(private readonly blogService: BlogService) {}
+  constructor(private readonly blogService: BlogService, private readonly excalidrawService: ExcalidrawService) {}
 
   @Get("article/*param")
-  async getArticleBySlug(@Param("param") param: string) {
+  async getArticleBySlug(@Param("param") param: string): Promise<ArticleResponse> {
     const path = this.blogService.convertParamToPath(param);
 
     const { content: rawContent, stats } =
       await this.blogService.readMarkdownFile(path);
 
     const { content, data } =
-      this.blogService.extractFrontMatterFromContent(rawContent);
+      await this.blogService.extractFrontMatterFromContent(rawContent);
+
+    if(data.tags && data.tags.includes('excalidraw')) {
+      const excalidraw = this.excalidrawService.decompressDrawing(this.excalidrawService.getCompressedJson(content));
+
+      return {
+        stats,
+        frontmatter: data,
+        type: 'excalidraw',
+        drawing: {
+          json: excalidraw,
+          content: content
+        }
+      }
+    }
 
     return {
-      content,
-      data,
       stats,
+      frontmatter: data,
+      type: 'markdown',
+      content
     };
   }
 
@@ -41,7 +60,7 @@ export class BlogController {
   }
 
   @Get("images")
-  async getAllImagesDictionary() {
+  async getAllImagesDictionary(): Promise<GetAllImagesResponse> {
     return this.blogService.getAllImagesDictionary();
   }
 

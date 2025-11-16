@@ -1,15 +1,19 @@
 import { env } from '@/env-server';
 import { get, getOrThrow } from '@/lib/fetch';
-import { NextResponse } from 'next/server';
-import { Stats } from 'node:fs';
+import type { ArticleResponse } from '@repo/database/dtos/blog/article';
+import { GetAllImagesResponse } from '@repo/database/dtos/blog/image';
 
-export async function getArticleContentBySlug(slugs: string[]) {
+export async function getArticleContentBySlug(slugs: string[]): Promise<ArticleResponse> {
   const slug = slugs.join('/');
 
-  return await getOrThrow(`/blog/article/${slug}`);
+  return await getOrThrow<ArticleResponse>(`/blog/article/${slug}`);
 }
 
-export async function getArticleImageBySlug(slugs: string[]) {
+export async function getArticleImageBySlug(slugs: string[]): Promise<{
+  readable: ReadableStream<Uint8Array<ArrayBufferLike>> | null;
+  contentType: string;
+  cacheControl: string;
+}> {
   const slug = slugs.join('/');
   const url = `${env.PORTFOLIO_BACKEND_API_URL}/blog/image/${slug}`;
 
@@ -29,8 +33,8 @@ export async function getArticleImageBySlug(slugs: string[]) {
   return { readable: response.body, contentType, cacheControl };
 }
 
-export async function getArticlesImagesDictionary() {
-  const response = await get('/blog/images');
+export async function getArticlesImagesDictionary(): Promise<GetAllImagesResponse> {
+  const response = await get<GetAllImagesResponse>('/blog/images');
 
   if (!response.ok) {
     throw new Error('Failed to fetch articles images dictionary');

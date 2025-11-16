@@ -12,6 +12,8 @@
     "format": "prettier '**/*' '!dist/**' '!.next/**' '!.turbo/**' --write"
   },
   "dependencies": {
+    "@excalidraw/excalidraw": "^0.18.0",
+    "@repo/database": "workspace:*",
     "@repo/ui": "workspace:*",
     "@t3-oss/env-nextjs": "^0.13.8",
     "geist": "^1.5.1",
