@@ -42,4 +42,9 @@ export const components = {
   tr: (props: ComponentProps<'tr'>): ReactNode => <TableRow {...props} />,
   th: (props: ComponentProps<'th'>): ReactNode => <TableHead {...props} />,
   td: (props: ComponentProps<'td'>): ReactNode => <TableCell {...props} />,
+  img: (props: ComponentProps<'img'>) => (
+    <span className="w-full flex justify-center">
+      <img {...props} />
+    </span>
+  ),
 };

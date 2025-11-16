@@ -7,6 +7,7 @@ import { assertValidLocaleFromParams } from '@/features/internationalization/lib
 import { fonts, readFontFromCookies } from '@/features/settings/lib/fonts';
 import { readThemeFromCookies } from '@/features/themes/lib/theme';
 import { MeStructuredData } from '@/features/search-engines/components/me-strutured-data';
+import { Toaster } from '@repo/ui/components/sonner';
 
 export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Promise<Metadata> {
   const locale = await assertValidLocaleFromParams(params);
@@ -19,7 +20,6 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
   };
 }
 
-/* layout.tsx */
 export async function generateViewport({ params }: LayoutProps<'/[locale]'>): Promise<Viewport> {
   const theme = await readThemeFromCookies();
 
@@ -58,7 +58,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
       </head>
       <body className={`font-sans antialiased ${fonts}`} data-font={font}>
         <ThemeProvider>
-          <I18nProvider>{children}</I18nProvider>
+          <I18nProvider>
+            {children}
+            <Toaster />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

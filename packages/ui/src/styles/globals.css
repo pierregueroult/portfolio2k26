@@ -141,6 +141,6 @@ body[data-font='dyslexic'] {
 
 @layer utilities {
   .blog-container {
-    @apply mx-auto max-w-6xl w-full px-4 pb-8;
+    @apply mx-auto max-w-4xl w-full px-4 pb-8;
   }
 }

@@ -1,3 +1,4 @@
+import { capitalize } from '@/lib/capitalize';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,22 +12,19 @@ import { Fragment } from 'react';
 type ArticleBreadcrumbProps = {
   path: string;
   title: string;
+  className?: string;
 };
-export function ArticleBreadcrumb({ path, title }: ArticleBreadcrumbProps) {
+export function ArticleBreadcrumb({ path, title, className }: ArticleBreadcrumbProps) {
   const steps = [...path.split('/'), title];
   return (
-    <Breadcrumb>
+    <Breadcrumb className={className}>
       <BreadcrumbList>
         {steps.map((step, index) => (
           <Fragment key={index}>
             <BreadcrumbItem key={index}>
-              <BreadcrumbPage>{step}</BreadcrumbPage>
+              <BreadcrumbPage>{capitalize(step)}</BreadcrumbPage>
             </BreadcrumbItem>
-            {index !== steps.length - 1 && (
-              <BreadcrumbSeparator>
-                <SlashIcon />
-              </BreadcrumbSeparator>
-            )}
+            {index !== steps.length - 1 && <BreadcrumbSeparator></BreadcrumbSeparator>}
           </Fragment>
         ))}
       </BreadcrumbList>
