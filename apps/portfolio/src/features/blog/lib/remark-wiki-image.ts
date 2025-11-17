@@ -17,6 +17,8 @@ type WikiImagePart = {
   alt?: string;
 };
 
+const imagesExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
 export const remarkWikiImage: Plugin<[Options?], Root> = (options?: Options) => {
   const prefix = options?.prefix ?? '';
   const dictionary = options?.dictionary ?? {};
@@ -53,6 +55,20 @@ export const remarkWikiImage: Plugin<[Options?], Root> = (options?: Options) => 
         }
 
         const rawPath = slugifyPath(p.path.trim());
+
+        const lastDotIndex = rawPath.lastIndexOf('.');
+        const ext = lastDotIndex >= 0 ? rawPath.slice(lastDotIndex + 1).toLowerCase() : '';
+
+        const isSupported = imagesExtensions.includes(ext);
+
+        if (!isSupported) {
+          newChildren.push({
+            type: 'text',
+            value: value.slice(p.start, p.end),
+          });
+          cursor = p.end;
+          continue;
+        }
 
         const resolvedPath = dictionary[rawPath] ?? rawPath;
         const alt = p.alt?.trim() ?? rawPath;

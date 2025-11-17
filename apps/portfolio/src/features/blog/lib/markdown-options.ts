@@ -1,5 +1,7 @@
 import remarkToc from 'remark-toc';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis';
 import type { MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
@@ -15,13 +17,12 @@ export async function getOptions(locale: Locale): Promise<MDXRemoteOptions> {
 
   return {
     mdxOptions: {
-      remarkRehypeOptions: {
-        allowDangerousHtml: true,
-      },
       remarkPlugins: [
         remarkGfm,
         remarkToc,
+        [remarkMath, { singleDollarTextMath: true }],
         [remarkWikiLinks, { prefix: `/${locale}/blog/` }],
+        [remarkWikiPdf, { prefix: `/${locale}/blog/documents/` }],
         [
           remarkWikiImage,
           {
@@ -29,9 +30,8 @@ export async function getOptions(locale: Locale): Promise<MDXRemoteOptions> {
             dictionary: imageDictionary,
           },
         ],
-        [remarkWikiPdf, { prefix: `/${locale}/blog/documents/` }],
       ],
-      rehypePlugins: [rehypeRaw, rehypeAccessibleEmojis],
+      rehypePlugins: [rehypeRaw, rehypeAccessibleEmojis, rehypeKatex],
     },
   };
 }

@@ -19,6 +19,8 @@ import { ReadButton } from '@/features/blog/components/read-button';
 import { Excalidraw } from '@/features/blog/components/excalidraw';
 import { parseDrawingFiles } from '@/features/blog/services/drawing';
 
+import '@/features/blog/styles/katex.css';
+
 export default async function BlogArticlePage(props: PageProps<'/[locale]/blog/[...article]'>) {
   const { article } = await props.params;
 
