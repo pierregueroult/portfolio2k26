@@ -64,6 +64,33 @@ export class BlogService {
     }
   }
 
+  async readPdfFile(path: string): Promise<{
+    stream: ReadStream;
+    filename: string;
+  }> {
+    const dir = this.resolveContentDirectory();
+    const filePath = join(dir, 'blog', path);
+
+    if (!existsSync(filePath)) {
+      throw new NotFoundException(`PDF file not found: ${path}`);
+    }
+
+    const filename = basename(filePath);
+
+    try {
+      const stream = createReadStream(filePath);
+
+      stream.on('error', () => {
+        throw new InternalServerErrorException('Error reading file');
+      });
+
+      return { stream, filename };
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      throw new InternalServerErrorException(`Error reading file: ${message}`);
+    }
+  }
+
   private resolveContentDirectory(): string {
     const packageJsonPath = require.resolve('@repo/content/package.json');
     return dirname(packageJsonPath);

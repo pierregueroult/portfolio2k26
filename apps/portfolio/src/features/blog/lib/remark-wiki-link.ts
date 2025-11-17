@@ -50,16 +50,24 @@ export const remarkWikiLinks: Plugin<[Options?], Root> = (options?: Options) => 
 
         const rawPath = p.path.trim();
         const label = (p.title ?? rawPath).trim();
-        const url = prefix + encodeURI(slugifyPath(rawPath));
 
-        const linkNode: Link = {
-          type: 'link',
-          url,
-          title: null,
-          children: [{ type: 'text', value: label }],
-        };
+        if (rawPath.toLowerCase().endsWith('.pdf')) {
+          newChildren.push({
+            type: 'text',
+            value: value,
+          });
+        } else {
+          const url = prefix + encodeURI(slugifyPath(rawPath));
 
-        newChildren.push(linkNode);
+          const linkNode: Link = {
+            type: 'link',
+            url,
+            title: null,
+            children: [{ type: 'text', value: label }],
+          };
+
+          newChildren.push(linkNode);
+        }
         cursor = p.end;
       }
 

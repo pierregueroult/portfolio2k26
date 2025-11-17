@@ -56,6 +56,18 @@ export class BlogController {
     stream.pipe(res);
   }
 
+  @Get('document/*param')
+  async getDocument(@Param('param') param: string, @Res() res: Response) {
+    const path = this.blogService.convertParamToPath(param);
+
+    const { stream, filename } = await this.blogService.readPdfFile(path);
+
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    stream.pipe(res);
+  }
+
   @Get('images')
   async getAllImagesDictionary(): Promise<GetAllImagesResponse> {
     return this.blogService.getAllImagesDictionary();
