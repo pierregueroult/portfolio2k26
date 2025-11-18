@@ -20,6 +20,7 @@ import { Excalidraw } from '@/features/blog/components/excalidraw';
 import { parseDrawingFiles } from '@/features/blog/services/drawing';
 
 import '@/features/blog/styles/katex.css';
+import { Drawing } from '@/features/blog/components/drawing';
 
 export default async function BlogArticlePage(props: PageProps<'/[locale]/blog/[...article]'>) {
   const { article } = await props.params;
@@ -28,9 +29,15 @@ export default async function BlogArticlePage(props: PageProps<'/[locale]/blog/[
   const result = await getArticleContentBySlug(article);
   const options = await getOptions(locale.slug);
 
+  if (result.type === 'excalidraw') {
+    return (
+      <Drawing json={result.drawing.json} content={result.drawing.content} locale={locale.slug} />
+    );
+  }
+
   if (result.type === 'markdown') {
     return (
-      <>
+      <div className="mb-24">
         <header className="space-y-4 my-16">
           <ArticleBreadcrumb path={result.frontmatter.folder} title={result.frontmatter.title} />
           <h1 className="text-7xl font-bold tracking-tight">
@@ -53,24 +60,6 @@ export default async function BlogArticlePage(props: PageProps<'/[locale]/blog/[
           options={options}
           components={components}
         />
-      </>
-    );
-  }
-
-  if (result.type === 'excalidraw') {
-    result.drawing.json.files = await parseDrawingFiles(
-      result.drawing.content,
-      locale.slug,
-      await getArticlesImagesDictionary(),
-    );
-
-    return (
-      <div className="h-screen w-screen fixed left-0 top-0">
-        <Excalidraw
-          initialData={result.drawing.json}
-          viewModeEnabled
-          langCode={locale.slug}
-        ></Excalidraw>
       </div>
     );
   }

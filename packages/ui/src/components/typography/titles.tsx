@@ -20,7 +20,7 @@ export function H2(props: ComponentProps<'h2'>) {
     <h2
       {...props}
       className={cn(
-        'scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0',
+        'scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-8',
         props.className,
       )}
     >
@@ -33,7 +33,7 @@ export function H3(props: ComponentProps<'h3'>) {
   return (
     <h3
       {...props}
-      className={cn('scroll-m-20 text-2xl font-semibold tracking-tight', props.className)}
+      className={cn('scroll-m-20 text-2xl font-semibold tracking-tight mt-4', props.className)}
     >
       {props.children}
     </h3>
@@ -44,7 +44,7 @@ export function H4(props: ComponentProps<'h4'>) {
   return (
     <h4
       {...props}
-      className={cn('scroll-m-20 text-xl font-semibold tracking-tight', props.className)}
+      className={cn('scroll-m-20 text-xl font-semibold tracking-tight mt-2', props.className)}
     >
       {props.children}
     </h4>

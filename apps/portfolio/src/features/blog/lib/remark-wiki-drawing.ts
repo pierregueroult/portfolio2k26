@@ -1,27 +1,23 @@
-import type { Plugin } from 'unified';
-import type { Root, Text, Image, PhrasingContent, Parent } from 'mdast';
-import { visit, SKIP } from 'unist-util-visit';
+import { Html, Parent, PhrasingContent, Root, Text } from 'mdast';
+import { Plugin } from 'unified';
+import { SKIP, visit } from 'unist-util-visit';
 import { slugifyPath } from './slugify-path';
 
 type Options = {
   prefix?: string;
-  dictionary: {
-    [key: string]: string;
-  };
 };
 
-type WikiImagePart = {
+type WikiDrawingPart = {
   start: number;
   end: number;
   path: string;
-  alt?: string;
+  title?: string;
 };
 
-const imagesExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', '.pdf'];
 
-export const remarkWikiImage: Plugin<[Options?], Root> = (options?: Options) => {
+export const remarkWikiDrawing: Plugin<[Options?], Root> = (options?: Options) => {
   const prefix = options?.prefix ?? '';
-  const dictionary = options?.dictionary ?? {};
   const rx = /!\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g;
 
   return (tree: Root) => {
@@ -30,19 +26,18 @@ export const remarkWikiImage: Plugin<[Options?], Root> = (options?: Options) => 
 
       const value = node.value;
       let match: RegExpExecArray | null;
-      const parts: WikiImagePart[] = [];
+      const parts: WikiDrawingPart[] = [];
 
       while ((match = rx.exec(value))) {
         parts.push({
           start: match.index,
           end: match.index + match[0].length,
           path: match[1] ?? '',
-          alt: match[2],
+          title: match[2],
         });
       }
 
       if (parts.length === 0) return;
-
       const newChildren: PhrasingContent[] = [];
       let cursor = 0;
 
@@ -55,13 +50,12 @@ export const remarkWikiImage: Plugin<[Options?], Root> = (options?: Options) => 
         }
 
         const rawPath = slugifyPath(p.path.trim());
-
         const lastDotIndex = rawPath.lastIndexOf('.');
         const ext = lastDotIndex >= 0 ? rawPath.slice(lastDotIndex + 1).toLowerCase() : '';
 
-        const isSupported = imagesExtensions.includes(ext);
+        const isDocument = extensions.includes(`.${ext}`);
 
-        if (!isSupported) {
+        if (isDocument) {
           newChildren.push({
             type: 'text',
             value: value.slice(p.start, p.end),
@@ -70,18 +64,16 @@ export const remarkWikiImage: Plugin<[Options?], Root> = (options?: Options) => 
           continue;
         }
 
-        const resolvedPath = dictionary[rawPath] ?? rawPath;
-        const alt = p.alt?.trim() ?? rawPath;
-        const url = prefix + encodeURI(resolvedPath);
+        const url = `${prefix}${rawPath}`;
+        const title = p.title || 'Drawing integration';
 
-        const imageNode: Image = {
-          type: 'image',
-          url,
-          title: null,
-          alt,
+        const iframeNode: Html = {
+          type: 'html',
+          value: `<iframe src="${url}" title="${title}" width="100%" height="500" class="border-foreground/10 border-4 rounded-2xl"></iframe>`,
         };
 
-        newChildren.push(imageNode);
+        newChildren.push(iframeNode);
+
         cursor = p.end;
       }
 

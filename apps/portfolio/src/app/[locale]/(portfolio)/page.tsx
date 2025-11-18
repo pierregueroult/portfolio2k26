@@ -56,7 +56,7 @@ export default function Page() {
           {elements.map((element, index) => (
             <span
               key={index}
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 border bg-background shadow-xs h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 border bg-background shadow-xs h-8 px-3 has-[>svg]:px-2.5"
             >
               {element.icon}
               {element.label}
