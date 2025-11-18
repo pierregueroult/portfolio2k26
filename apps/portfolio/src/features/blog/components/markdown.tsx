@@ -14,6 +14,8 @@ import { Blockquote } from '@repo/ui/components/typography/blockquote';
 import { H1, H2, H3, H4 } from '@repo/ui/components/typography/titles';
 import { Li, Ol, Ul } from '@repo/ui/components/typography/list';
 import { Paragraph } from '@repo/ui/components/typography/paragraph';
+import { CodeBlock } from './code-block';
+import { inferLanguageFromClass } from '../lib/infer-language-from-class';
 
 export type MarkdownComponents = {};
 
@@ -47,4 +49,10 @@ export const components = {
       <img {...props} />
     </span>
   ),
+  code: (props: ComponentProps<'code'>) => {
+    const language = inferLanguageFromClass(props.className);
+    if (language && typeof props.children === 'string')
+      return <CodeBlock language={language} code={props.children} />;
+    return <code {...props} />;
+  },
 };
