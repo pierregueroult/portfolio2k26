@@ -23,4 +23,8 @@ export class FrontMatter {
   @IsString()
   @IsOptional()
   'excalidraw-plugin': string;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
 }

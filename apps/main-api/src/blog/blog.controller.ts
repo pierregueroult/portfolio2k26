@@ -1,45 +1,51 @@
-import { Controller, Get, NotImplementedException, Param, Res } from '@nestjs/common';
-import { BlogService } from './blog.service';
+import { Controller, Get, Param, Res } from '@nestjs/common';
 
 import type { Response } from 'express';
 import { ExcalidrawService } from './excalidraw/excalidraw.service';
+import { ImageService } from './image/image.service';
+import { MarkdownService } from './markdown/markdown.service';
+import { DocumentService } from './document/document.service';
+
+import { convertParamToPath } from './blog.util';
+
 import { ArticleResponse } from '@repo/database/dtos/blog/article';
 import { GetAllImagesResponse } from '@repo/database/dtos/blog/image';
 
 @Controller('blog')
 export class BlogController {
   constructor(
-    private readonly blogService: BlogService,
     private readonly excalidrawService: ExcalidrawService,
+    private readonly imageService: ImageService,
+    private readonly markdownService: MarkdownService,
+    private readonly documentService: DocumentService,
   ) {}
 
   @Get('article/*param')
   async getArticleBySlug(@Param('param') param: string): Promise<ArticleResponse> {
-    const path = this.blogService.convertParamToPath(param);
+    const path = convertParamToPath(param);
+    const { content: rawContent, stats } = await this.markdownService.readMarkdownFile(path);
+    const { content, data: frontmatter } =
+      await this.markdownService.extractFrontMatterFromContent(rawContent);
 
-    const { content: rawContent, stats } = await this.blogService.readMarkdownFile(path);
-
-    const { content, data } = await this.blogService.extractFrontMatterFromContent(rawContent);
-
-    if (data.tags && data.tags.includes('excalidraw')) {
-      const excalidraw = this.excalidrawService.decompressDrawing(
+    if (frontmatter.tags && frontmatter.tags.includes('excalidraw')) {
+      const json = this.excalidrawService.decompressDrawing(
         this.excalidrawService.getCompressedJson(content),
       );
 
       return {
         stats,
-        frontmatter: data,
+        frontmatter,
         type: 'excalidraw',
         drawing: {
-          json: excalidraw,
-          content: content,
+          json,
+          content,
         },
       };
     }
 
     return {
       stats,
-      frontmatter: data,
+      frontmatter,
       type: 'markdown',
       content,
     };
@@ -47,9 +53,9 @@ export class BlogController {
 
   @Get('image/*param')
   async getImage(@Param('param') param: string, @Res() res: Response) {
-    const path = this.blogService.convertParamToPath(param);
+    const path = convertParamToPath(param);
 
-    const { stream, mime } = await this.blogService.readImageFile(path);
+    const { stream, mime } = await this.imageService.readImageFile(path);
 
     res.setHeader('Content-Type', mime);
     res.setHeader('Cache-Control', 'public, max-age=86400');
@@ -58,9 +64,9 @@ export class BlogController {
 
   @Get('document/*param')
   async getDocument(@Param('param') param: string, @Res() res: Response) {
-    const path = this.blogService.convertParamToPath(param);
+    const path = convertParamToPath(param);
 
-    const { stream, filename } = await this.blogService.readPdfFile(path);
+    const { stream, filename } = await this.documentService.readPdfFile(path);
 
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
     res.setHeader('Content-Type', 'application/pdf');
@@ -70,11 +76,11 @@ export class BlogController {
 
   @Get('images')
   async getAllImagesDictionary(): Promise<GetAllImagesResponse> {
-    return this.blogService.getAllImagesDictionary();
+    return this.imageService.getAllImagesDictionary();
   }
 
   @Get('paths')
   async getAllArticlePaths() {
-    return this.blogService.getAllArticlePaths();
+    return this.markdownService.getAllArticlePaths();
   }
 }

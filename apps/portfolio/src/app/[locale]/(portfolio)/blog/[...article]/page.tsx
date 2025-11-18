@@ -1,10 +1,7 @@
 import { MDXRemote } from 'next-mdx-remote-client/rsc';
 
 import { MarkdownError } from '@/features/blog/components/error';
-import {
-  getArticleContentBySlug,
-  getArticlesImagesDictionary,
-} from '@/features/blog/services/content';
+import { getArticleContentBySlug } from '@/features/blog/services/content';
 import { getOptions } from '@/features/blog/lib/markdown-options';
 import { ArticleBreadcrumb } from '@/features/blog/components/breadcrump';
 import { assertValidLocaleFromParams } from '@/features/internationalization/lib/utils';
@@ -16,8 +13,6 @@ import { SITE_BASE_URL } from '@/config';
 import { CopyLinkButton } from '@/features/blog/components/copy-link-button';
 import { PrintButton } from '@/features/blog/components/print-button';
 import { ReadButton } from '@/features/blog/components/read-button';
-import { Excalidraw } from '@/features/blog/components/excalidraw';
-import { parseDrawingFiles } from '@/features/blog/services/drawing';
 
 import '@/features/blog/styles/katex.css';
 import { Drawing } from '@/features/blog/components/drawing';
