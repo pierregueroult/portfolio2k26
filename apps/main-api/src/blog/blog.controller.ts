@@ -47,7 +47,9 @@ export class BlogController {
       stats,
       frontmatter,
       type: 'markdown',
-      content,
+      article: {
+        content,
+      },
     };
   }
 

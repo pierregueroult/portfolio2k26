@@ -8,6 +8,7 @@ import { fonts, readFontFromCookies } from '@/features/settings/lib/fonts';
 import { readThemeFromCookies } from '@/features/themes/lib/theme';
 import { MeStructuredData } from '@/features/search-engines/components/me-strutured-data';
 import { Toaster } from '@repo/ui/components/sonner';
+import { createViewportForTheme } from '@/features/themes/lib/viewport';
 
 export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Promise<Metadata> {
   const locale = await assertValidLocaleFromParams(params);
@@ -20,31 +21,9 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
   };
 }
 
-export async function generateViewport({ params }: LayoutProps<'/[locale]'>): Promise<Viewport> {
+export async function generateViewport(): Promise<Viewport> {
   const theme = await readThemeFromCookies();
-
-  const COLORS = {
-    light: '#f5f5f5',
-    dark: '#262626',
-  };
-
-  if (!theme || theme === 'system') {
-    return {
-      themeColor: [
-        { color: COLORS.light, media: '(prefers-color-scheme: light)' },
-        { color: COLORS.dark, media: '(prefers-color-scheme: dark)' },
-      ],
-    };
-  }
-
-  const color = COLORS[theme];
-  return {
-    themeColor: [
-      { color, media: '(prefers-color-scheme: light)' },
-      { color, media: '(prefers-color-scheme: dark)' },
-    ],
-    colorScheme: theme === 'light' ? 'light' : 'dark',
-  };
+  return createViewportForTheme(theme);
 }
 
 export default async function LocaleLayout({ children, params }: LayoutProps<'/[locale]'>) {

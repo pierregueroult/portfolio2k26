@@ -1,61 +1,60 @@
-import { MDXRemote } from 'next-mdx-remote-client/rsc';
-
-import { MarkdownError } from '@/features/blog/components/error';
-import { getArticleContentBySlug } from '@/features/blog/services/content';
-import { getOptions } from '@/features/blog/lib/markdown-options';
-import { ArticleBreadcrumb } from '@/features/blog/components/breadcrump';
-import { assertValidLocaleFromParams } from '@/features/internationalization/lib/utils';
-import { components } from '@/features/blog/components/markdown';
-import { capitalize } from '@/lib/capitalize';
-import { Separator } from '@repo/ui/components/separator';
-import { ShareButton } from '@/features/blog/components/share-button';
 import { SITE_BASE_URL } from '@/config';
-import { CopyLinkButton } from '@/features/blog/components/copy-link-button';
-import { PrintButton } from '@/features/blog/components/print-button';
-import { ReadButton } from '@/features/blog/components/read-button';
 
-import '@/features/blog/styles/katex.css';
+import { getArticleContentBySlug } from '@/features/blog/services/content';
+import { assertValidLocaleFromParams } from '@/features/internationalization/lib/utils';
 import { Drawing } from '@/features/blog/components/drawing';
+import { ArticleHeader } from '@/features/blog/components/article-header';
+import { ArticleContent } from '@/features/blog/components/article-content';
+import { ArticleStructuredData } from '@/features/blog/components/article-structured-data';
+import { countWordsOfMarkdown } from '@/features/blog/lib/utils';
 
 export default async function BlogArticlePage(props: PageProps<'/[locale]/blog/[...article]'>) {
   const { article } = await props.params;
-
   const locale = await assertValidLocaleFromParams(props.params);
   const result = await getArticleContentBySlug(article);
-  const options = await getOptions(locale.slug);
+  const link = `${SITE_BASE_URL}/${locale.slug}/blog/${article.join('/')}`;
 
-  if (result.type === 'excalidraw') {
-    return (
-      <Drawing json={result.drawing.json} content={result.drawing.content} locale={locale.slug} />
-    );
-  }
-
-  if (result.type === 'markdown') {
-    return (
-      <div className="mb-24">
-        <header className="space-y-4 my-16">
-          <ArticleBreadcrumb path={result.frontmatter.folder} title={result.frontmatter.title} />
-          <h1 className="text-7xl font-bold tracking-tight">
-            {capitalize(result.frontmatter.title)}
-          </h1>
-          <div className="flex items-center gap-2">
-            <ShareButton
-              url={`${SITE_BASE_URL}/${locale.slug}/blog/${article.join('/')}`}
-              title={result.frontmatter.title}
-            />
-            <PrintButton />
-            <ReadButton markdown={result.content} />
-            <CopyLinkButton url={`${SITE_BASE_URL}/${locale.slug}/blog/${article.join('/')}`} />
-          </div>
-          <Separator className="bg-foreground" />
-        </header>
-        <MDXRemote
-          source={result.content}
-          onError={MarkdownError}
-          options={options}
-          components={components}
-        />
-      </div>
-    );
-  }
+  return (
+    <>
+      {result.type === 'markdown' && (
+        <div className="mb-24">
+          <ArticleHeader frontmatter={result.frontmatter} article={article} locale={locale.slug} />
+          <ArticleContent content={result.article.content} locale={locale.slug} />
+        </div>
+      )}
+      {result.type === 'excalidraw' && (
+        <Drawing json={result.drawing.json} content={result.drawing.content} locale={locale.slug} />
+      )}
+      <ArticleStructuredData
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          '@id': link,
+          mainEntityOfPage: link,
+          headline: result.frontmatter.title,
+          datePublished: result.frontmatter.date,
+          dateModified: result.frontmatter.date,
+          author: {
+            '@type': 'Person',
+            '@id': 'https://pierregueroult.dev/#me',
+            name: 'Pierre Gueroult',
+            url: SITE_BASE_URL,
+          },
+          keywords: result.frontmatter.tags || [],
+          wordCount: countWordsOfMarkdown(
+            result.type === 'markdown' ? result.article.content : result.drawing.content,
+          ),
+          isPartOf: {
+            '@type': 'WebPage',
+            '@id': `${SITE_BASE_URL}/${locale.slug}/blog`,
+            name: "Pierre Guéroult's Blog",
+          },
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['.post-summary', 'h1'],
+          },
+        }}
+      />
+    </>
+  );
 }

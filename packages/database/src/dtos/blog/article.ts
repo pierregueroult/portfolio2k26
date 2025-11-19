@@ -8,7 +8,9 @@ interface ArticleResponseBase {
 }
 
 interface ArticleMarkdownResponse extends ArticleResponseBase {
-  content: string;
+  article: {
+    content: string;
+  };
   type: 'markdown';
 }
 
