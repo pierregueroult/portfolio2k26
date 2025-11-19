@@ -1,4 +1,4 @@
-import { IsArray, IsIn, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsDate, IsIn, IsOptional, IsString } from 'class-validator';
 import { visibilities, Visibility } from '../../constracts/blog/visibilty';
 
 export class FrontMatter {
@@ -24,7 +24,11 @@ export class FrontMatter {
   @IsOptional()
   'excalidraw-plugin': string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsDate()
+  date: string;
 }

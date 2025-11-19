@@ -25,7 +25,7 @@ export class BlogController {
     const path = convertParamToPath(param);
     const { content: rawContent, stats } = await this.markdownService.readMarkdownFile(path);
     const { content, data: frontmatter } =
-      await this.markdownService.extractFrontMatterFromContent(rawContent);
+      await this.markdownService.extractFrontMatterOrThrow(rawContent);
 
     if (frontmatter.tags && frontmatter.tags.includes('excalidraw')) {
       const json = this.excalidrawService.decompressDrawing(
@@ -82,5 +82,15 @@ export class BlogController {
   @Get('paths')
   async getAllArticlePaths() {
     return this.markdownService.getAllArticlePaths();
+  }
+
+  @Get('articles/for-blog')
+  async getAllArticles() {
+    return this.markdownService.getAllStringArticles('blog');
+  }
+
+  @Get('articles/for-classes')
+  async getAllClassesArticles() {
+    return this.markdownService.getAllStringArticles('classes');
   }
 }

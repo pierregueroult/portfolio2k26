@@ -1,0 +1,27 @@
+{
+  "context_servers": {
+    "shadcn-mcp-server": {
+      "source": "custom",
+      "enabled": true,
+      "command": "npx",
+      "args": ["-y", "shadcn@latest", "mcp"],
+      "env": {}
+    },
+    "nextjs-mcp-server": {
+      "source": "custom",
+      "enabled": true,
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"],
+      "env": {}
+    }
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "vim_mode": true,
+  "base_keymap": "VSCode"
+}

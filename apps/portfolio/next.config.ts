@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   experimental: {
     authInterrupts: true,
     browserDebugInfoInTerminal: true,
+    globalNotFound: true,
   },
 };
 

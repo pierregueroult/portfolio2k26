@@ -15,6 +15,7 @@ export async function readDirectoryRecursively(
   rootDir: string,
   extensions: string[],
   removeExtension = true,
+  slugify = true,
 ): Promise<string[]> {
   const entries = await readdir(dir, { withFileTypes: true });
   const results: string[] = [];
@@ -24,14 +25,22 @@ export async function readDirectoryRecursively(
     const extension = entry.name.toLowerCase().split('.').pop();
     if (entry.isFile() && extensions.includes(`.${extension}`)) {
       const relativePath = relative(rootDir, resolve(dir, entry.name));
-      const slug = (removeExtension ? relativePath.replace(/\.[^./\\]+$/u, '') : relativePath)
-        .toLowerCase()
-        .replaceAll(' ', '-');
+      let slug = removeExtension ? relativePath.replace(/\.[^./\\]+$/u, '') : relativePath;
+
+      if (slugify) {
+        slug = slug.toLowerCase().replaceAll(' ', '-');
+      }
 
       results.push(slug);
     } else if (entry.isDirectory()) {
       subdirPromises.push(
-        readDirectoryRecursively(resolve(dir, entry.name), rootDir, extensions, removeExtension),
+        readDirectoryRecursively(
+          resolve(dir, entry.name),
+          rootDir,
+          extensions,
+          removeExtension,
+          slugify,
+        ),
       );
     }
   }

@@ -3,7 +3,6 @@ import { resolve } from 'node:path';
 import { type Stats } from 'node:fs';
 import { FrontMatter } from '@repo/database/schemas/blog/front-matter';
 import { validate } from '@repo/database/utils/validate';
-
 import {
   BadRequestException,
   Injectable,
@@ -11,50 +10,164 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import matter from 'gray-matter';
-
 import { resolveContentDirectory, readDirectoryRecursively } from '../blog.util';
+
+interface MarkdownFileResult {
+  content: string;
+  stats: Stats;
+}
+
+interface FrontMatterResult {
+  content: string;
+  data: FrontMatter;
+}
+
+type FrontMatterExtractResult = FrontMatterResult | 'unauthorized' | 'bad-request';
+
+export interface ArticleSummary {
+  title: string;
+  link: string;
+  date: string;
+}
+
+const MARKDOWN_EXTENSION = '.md';
+const BLOG_SUBDIRECTORY = 'blog';
+const PUBLIC_VISIBILITY = 'public';
 
 @Injectable()
 export class MarkdownService {
-  async readMarkdownFile(path: string): Promise<{ content: string; stats: Stats }> {
-    const dir = resolveContentDirectory();
-    const file = resolve(dir, 'blog', `${path}.md`);
+  async readMarkdownFile(path: string): Promise<MarkdownFileResult> {
+    const filePath = this.buildMarkdownFilePath(path);
 
     try {
-      const [content, stats] = await Promise.all([readFile(file, 'utf-8'), stat(file)]);
+      const [content, stats] = await Promise.all([readFile(filePath, 'utf-8'), stat(filePath)]);
 
-      return {
-        content,
-        stats,
-      };
+      return { content, stats };
     } catch (error) {
-      throw new NotFoundException(`Markdown file not found: ${path}`);
+      throw new NotFoundException(`Markdown file not found: ${filePath}`);
     }
   }
 
-  async extractFrontMatterFromContent(markdown: string): Promise<{
-    content: string;
-    data: FrontMatter;
-  }> {
-    const result = matter(markdown);
+  async extractFrontMatterOrThrow(markdown: string): Promise<FrontMatterResult> {
+    const result = await this.extractFrontMatterFromContent(markdown);
 
-    if (!result.data.visibility || result.data.visibility !== 'public') {
-      throw new UnauthorizedException('This article is not public');
+    if (result === 'unauthorized') {
+      throw new UnauthorizedException('Article visibility is not public');
     }
 
-    const validated = await validate<FrontMatter>(FrontMatter, result.data, { whitelist: false });
+    if (result === 'bad-request') {
+      throw new BadRequestException('Invalid front matter data');
+    }
+
+    return result;
+  }
+
+  async extractFrontMatterFromContent(markdown: string): Promise<FrontMatterExtractResult> {
+    const { data, content } = matter(markdown);
+
+    if (!this.isPublicArticle(data)) {
+      return 'unauthorized';
+    }
+
+    const validated = await validate<FrontMatter>(FrontMatter, data, { whitelist: false });
 
     if (!('data' in validated)) {
-      throw new BadRequestException(`'Invalid front matter : ${validated.errors.join(', ')}`);
+      return 'bad-request';
     }
 
-    return { content: result.content, data: validated.data };
+    return { content, data: validated.data };
   }
 
-  async getAllArticlePaths() {
-    const dir = resolveContentDirectory();
-    const blogDir = resolve(dir, 'blog');
+  async getAllArticlePaths(): Promise<string[]> {
+    const blogDir = this.resolveBlogDirectory();
+    return await readDirectoryRecursively(blogDir, blogDir, [MARKDOWN_EXTENSION], true);
+  }
 
-    return await readDirectoryRecursively(blogDir, blogDir, ['.md'], true);
+  async getAllStringArticles(folder: string): Promise<ArticleSummary[]> {
+    const articlePaths = await this.getArticlePathsInFolder(folder);
+    const articles = await this.processArticles(folder, articlePaths);
+
+    return articles.filter((article): article is ArticleSummary => article !== null);
+  }
+
+  private buildMarkdownFilePath(relativePath: string): string {
+    const contentDir = resolveContentDirectory();
+    return resolve(contentDir, BLOG_SUBDIRECTORY, `${relativePath}${MARKDOWN_EXTENSION}`);
+  }
+
+  private resolveBlogDirectory(): string {
+    const contentDir = resolveContentDirectory();
+    return resolve(contentDir, BLOG_SUBDIRECTORY);
+  }
+
+  private isPublicArticle(data: Record<string, unknown>): boolean {
+    return data.visibility === PUBLIC_VISIBILITY;
+  }
+
+  private async getArticlePathsInFolder(folder: string): Promise<string[]> {
+    const blogDir = this.resolveBlogDirectory();
+    const folderPath = resolve(blogDir, folder);
+
+    return await readDirectoryRecursively(
+      folderPath,
+      folderPath,
+      [MARKDOWN_EXTENSION],
+      false,
+      false,
+    );
+  }
+
+  private async processArticles(
+    folder: string,
+    articlePaths: string[],
+  ): Promise<(ArticleSummary | null)[]> {
+    return await Promise.all(
+      articlePaths.map((relativePath) => this.processArticle(folder, relativePath)),
+    );
+  }
+
+  private async processArticle(
+    folder: string,
+    relativePath: string,
+  ): Promise<ArticleSummary | null> {
+    const pathWithoutExtension = relativePath.replace(MARKDOWN_EXTENSION, '');
+    const fullPath = `${folder}/${pathWithoutExtension}`;
+
+    try {
+      const { content } = await this.readMarkdownFile(fullPath);
+      const result = await this.extractFrontMatterFromContent(content);
+
+      if (result === 'bad-request' || result === 'unauthorized') {
+        return null;
+      }
+
+      return this.buildArticleSummary(pathWithoutExtension, result.data);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  private buildArticleSummary(
+    pathWithoutExtension: string,
+    frontMatter: FrontMatter,
+  ): ArticleSummary {
+    const title = this.extractTitleFromPath(pathWithoutExtension);
+    const link = this.generateLinkFromPath(pathWithoutExtension);
+    const date = frontMatter.date ?? this.getCurrentDate();
+
+    return { title, link, date };
+  }
+
+  private extractTitleFromPath(path: string): string {
+    return path.split('/').pop() ?? path;
+  }
+
+  private generateLinkFromPath(path: string): string {
+    return path.replace(/ /g, '-').toLowerCase();
+  }
+
+  private getCurrentDate(): string {
+    const now = new Date();
+    return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
   }
 }

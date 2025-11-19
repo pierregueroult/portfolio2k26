@@ -15,7 +15,6 @@ export const items: NavigationList = [
     {
       key: 'blog',
       href: '/blog',
-      disabled: true,
     },
   ],
   [
