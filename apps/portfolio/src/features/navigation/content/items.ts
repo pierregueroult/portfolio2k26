@@ -8,11 +8,6 @@ export const items: NavigationList = [
       href: '/',
     },
     {
-      key: 'resume',
-      href: '/resume',
-      disabled: true,
-    },
-    {
       key: 'blog',
       href: '/blog',
     },
