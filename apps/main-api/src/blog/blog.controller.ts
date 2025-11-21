@@ -78,7 +78,9 @@ export class BlogController {
 
   @Get('images')
   async getAllImagesDictionary(): Promise<GetAllImagesResponse> {
-    return this.imageService.getAllImagesDictionary();
+    return {
+      images: await this.imageService.getAllImagesDictionary(),
+    };
   }
 
   @Get('paths')

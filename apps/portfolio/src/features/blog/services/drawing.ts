@@ -29,7 +29,7 @@ export async function parseDrawingFiles(
     for (const [id, name] of pairs) {
       if (!id || !name) continue;
 
-      const permalink = images[name];
+      const permalink = images.images[name];
 
       if (!permalink) continue;
 
