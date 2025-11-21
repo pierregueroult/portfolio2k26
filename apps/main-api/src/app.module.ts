@@ -12,4 +12,4 @@ import { validateEnvironment } from './env.validation';
   ],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

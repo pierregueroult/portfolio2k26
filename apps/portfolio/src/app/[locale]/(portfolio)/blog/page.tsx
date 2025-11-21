@@ -57,7 +57,6 @@ export default async function BlogPage() {
 
   return (
     <div className="relative py-12 md:py-16">
-
       <div className="space-y-16">
         {sortedYears.map((year) => (
           <section key={year} className="space-y-6">

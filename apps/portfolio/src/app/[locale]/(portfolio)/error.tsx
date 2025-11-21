@@ -26,9 +26,7 @@ export default function Error({
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Something went wrong
-          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Something went wrong</h1>
           <p className="text-muted-foreground">
             An unexpected error occurred while loading this page.
           </p>
@@ -36,9 +34,7 @@ export default function Error({
 
         {process.env.NODE_ENV === 'development' && error.message && (
           <div className="bg-muted rounded-lg p-4 text-left">
-            <p className="text-xs font-mono text-muted-foreground break-all">
-              {error.message}
-            </p>
+            <p className="text-xs font-mono text-muted-foreground break-all">{error.message}</p>
           </div>
         )}
 
