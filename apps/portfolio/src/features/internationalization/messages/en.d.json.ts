@@ -2,50 +2,74 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-  "ThemeSelect": {
-    "label": "Select Theme",
-    "options": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    }
-  },
-  "SettingsPopover": {
-    "theme": {
-      "label": "Change theme",
-      "description": "More themes are coming soon."
-    },
-    "language": {
-      "label": "Change language",
-      "description": "More languages are coming soon."
-    },
-    "dislexia": {
-      "label": "Toggle dislexia mode",
-      "description": "Change the font to make it easier to read."
-    }
-  },
-  "LocaleSelect": {
-    "label": "Select Language",
-    "options": {
-      "en": "English",
-      "fr": "Français"
-    }
-  },
-  "NavigationBar": {
-    "menu": "Toggle menu"
-  },
-  "NavigationNode": {
-    "home": "Home",
-    "resume": "Resume",
-    "blog": "Blog",
-    "contact": "Contact Me"
-  },
-  "LocaleLayout": {
-    "metadata": {
-      "title": "TEMP",
-      "description": "TEMP",
-      "keywords": "temp, temp, temp, temp"
-    }
-  }
+  ThemeSelect: {
+    label: 'Select Theme';
+    options: {
+      light: 'Light';
+      dark: 'Dark';
+      system: 'System';
+    };
+  };
+  SettingsPopover: {
+    theme: {
+      label: 'Change theme';
+      description: 'More themes are coming soon.';
+    };
+    language: {
+      label: 'Change language';
+      description: 'More languages are coming soon.';
+    };
+    dislexia: {
+      label: 'Toggle dislexia mode';
+      description: 'Change the font to make it easier to read.';
+    };
+  };
+  LocaleSelect: {
+    label: 'Select Language';
+    options: {
+      en: 'English';
+      fr: 'Français';
+    };
+  };
+  NavigationBar: {
+    menu: 'Toggle menu';
+  };
+  NavigationNode: {
+    home: 'Home';
+    resume: 'Resume';
+    blog: 'Blog';
+    contact: 'Contact Me';
+  };
+  LocaleLayout: {
+    metadata: {
+      titleDefault: 'Pierre Guéroult — Software & AI Engineer in Paris';
+      titlePattern: 'Pierre Guéroult';
+      description: 'Pierre Guéroult is a Paris‑based software and AI engineer delivering full‑stack web apps, clean UI/UX, automation, analytics, and pragmatic product craft.';
+      keywords: 'Pierre Guéroult, Pierre Gueroult, software engineer, AI engineer, Paris, full‑stack, web developer, Next.js, React, TypeScript, Tailwind CSS, Node.js, NestJS, shadcn/ui, open‑source, Arqetype, portfolio, product engineering';
+      og: {
+        title: 'Pierre Guéroult — Software & AI Engineer in Paris';
+        description: 'Paris‑based software & AI engineer building clean, maintainable products with modern web stacks.';
+      };
+      twitter: {
+        title: 'Pierre Guéroult — Software & AI Engineer in Paris';
+        description: 'Full‑stack, UI/UX, automation, analytics, and AI features.';
+      };
+    };
+  };
+  BlogPage: {
+    metadata: {
+      title: 'Blog';
+      description: 'Thoughts on software development, AI, and product engineering.';
+      keywords: 'blog, software development, AI, product engineering, articles, tech, tech blog';
+      og: {
+        title: 'Blog';
+        description: 'Thoughts on software development, AI, and product engineering.';
+      };
+      twitter: {
+        title: 'Blog';
+        description: 'Thoughts on software development, AI, and product engineering.';
+      };
+    };
+  };
 };
 export default messages;

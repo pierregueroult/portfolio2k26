@@ -74,3 +74,13 @@ export async function getArticlesImagesDictionary(): Promise<GetAllImagesRespons
 
   return response.data;
 }
+
+export interface ArticleSummary {
+  title: string;
+  link: string;
+  date: string;
+}
+
+export async function getAllBlogArticles(): Promise<ArticleSummary[]> {
+  return await getOrThrow<ArticleSummary[]>('/blog/articles/for-blog');
+}

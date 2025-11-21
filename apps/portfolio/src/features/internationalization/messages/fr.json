@@ -39,9 +39,32 @@
   },
   "LocaleLayout": {
     "metadata": {
-      "title": "TEMP",
-      "description": "TEMP",
-      "keywords": "temp, temp, temp, temp"
+      "title": "Pierre Guéroult — Ingénieur Logiciel & IA à Paris",
+      "description": "Pierre Guéroult est un ingénieur logiciel et IA basé à Paris, délivrant des applications web full‑stack, des interfaces propres (UI/UX), de l’automatisation, de l’analytique et un product craft pragmatique.",
+      "keywords": "Pierre Guéroult, Pierre Gueroult, software engineer, AI engineer, Paris, full‑stack, développeur web, Next.js, React, TypeScript, Tailwind CSS, Node.js, NestJS, shadcn/ui, open‑source, Arqetype, portfolio, product engineering",
+      "og": {
+        "title": "Pierre Guéroult — Ingénieur Logiciel & IA à Paris",
+        "description": "Ingénieur logiciel & IA basé à Paris, construisant des produits propres et maintenables avec des stacks web modernes."
+      },
+      "twitter": {
+        "title": "Pierre Guéroult — Ingénieur Logiciel & IA à Paris",
+        "description": "Full‑stack, UI/UX, automatisation, analytique et fonctionnalités IA."
+      }
+    }
+  },
+  "BlogPage": {
+    "meta": {
+      "title": "Blog",
+      "description": "Réflexions sur le développement logiciel, l’IA et l’ingénierie produit.",
+      "keywords": "blog, développement logiciel, IA, ingénierie produit, articles, tech, blog tech",
+      "og": {
+        "title": "Blog",
+        "description": "Réflexions sur le développement logiciel, l’IA et l’ingénierie produit."
+      },
+      "twitter": {
+        "title": "Blog",
+        "description": "Réflexions sur le développement logiciel, l’IA et l’ingénierie produit."
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 import type { Plugin } from 'unified';
 import type { Root, Text, Image, PhrasingContent, Parent } from 'mdast';
 import { visit, SKIP } from 'unist-util-visit';
-import { slugifyPath } from './slugify-path';
+import { slugifyPath } from './utils';
 
 type Options = {
   prefix?: string;

@@ -1,7 +1,7 @@
 import { Html, Parent, PhrasingContent, Root, Text } from 'mdast';
 import { Plugin } from 'unified';
 import { SKIP, visit } from 'unist-util-visit';
-import { slugifyPath } from './slugify-path';
+import { slugifyPath } from './utils';
 
 type Options = {
   prefix?: string;

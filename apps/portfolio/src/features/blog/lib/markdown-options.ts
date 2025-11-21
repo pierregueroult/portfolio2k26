@@ -12,7 +12,6 @@ import { remarkWikiImage } from './remark-wiki-image';
 import { getArticlesImagesDictionary } from '../services/content';
 import { remarkWikiPdf } from './remark-wiki-pdf';
 import { remarkWikiDrawing } from './remark-wiki-drawing';
-import { env } from '@/env-server';
 
 export async function getOptions(locale: Locale): Promise<MDXRemoteOptions> {
   const imageDictionary = await getArticlesImagesDictionary();
