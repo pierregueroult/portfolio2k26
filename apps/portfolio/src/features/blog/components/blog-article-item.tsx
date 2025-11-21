@@ -23,8 +23,9 @@ export function BlogArticleItem({ title, link, date, className }: BlogArticleIte
         className,
       )}
     >
-      <span className="font-normal text-base group-hover:underline underline-offset-4 decoration-muted-foreground/50">
+      <span className="relative font-normal text-base">
         {title}
+        <span className="absolute left-0 top-full block h-[1px] w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
       </span>
       <span className="text-sm text-muted-foreground whitespace-nowrap flex-shrink-0">
         {formattedDate}

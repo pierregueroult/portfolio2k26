@@ -1,0 +1,4 @@
+.mask-oval {
+    -webkit-mask-image: radial-gradient(ellipse 60% 40% at center, white, transparent);
+    mask-image: radial-gradient(ellipse 60% 40% at center, white, transparent);
+}

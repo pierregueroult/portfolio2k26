@@ -4,6 +4,7 @@ import { getAllBlogArticles } from '@/features/blog/services/content';
 import { BlogArticleItem } from '@/features/blog/components/blog-article-item';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { GridPattern } from '@/components/ui/grid-pattern';
 
 export async function generateMetadata({ params }: PageProps<'/[locale]'>): Promise<Metadata> {
   const locale = await assertValidLocaleFromParams(params);
@@ -55,7 +56,8 @@ export default async function BlogPage() {
   }
 
   return (
-    <div className="py-12 md:py-16">
+    <div className="relative py-12 md:py-16">
+
       <div className="space-y-16">
         {sortedYears.map((year) => (
           <section key={year} className="space-y-6">

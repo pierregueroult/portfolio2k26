@@ -6,7 +6,7 @@ export function H1(props: ComponentProps<'h1'>) {
     <h1
       {...props}
       className={cn(
-        'scroll-m-20 text-balance text-center text-4xl font-extrabold tracking-tight',
+        'scroll-m-20 text-balance text-4xl font-extrabold tracking-tight',
         props.className,
       )}
     >
