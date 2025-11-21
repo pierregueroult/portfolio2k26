@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write '**/*.{ts,tsx,json,css}'"
+    "format": "prettier --write '**/*.{ts,tsx,json,css}'",
+    "test": "vitest"
   },
   "dependencies": {
     "@excalidraw/excalidraw": "^0.18.0",
@@ -46,7 +47,12 @@
     "prettier": "^3.6.2",
     "schema-dts": "^1.1.5",
     "typescript": "^5.9.2",
-    "unified": "^11.0.5"
+    "unified": "^11.0.5",
+    "vitest": "^1.6.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "jsdom": "^24.0.0",
+    "@testing-library/react": "^15.0.0",
+    "@testing-library/dom": "^10.0.0"
   },
   "volta": {
     "node": "24.11.0"
