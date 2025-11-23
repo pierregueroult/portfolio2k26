@@ -1,5 +1,4 @@
 import { useId } from 'react';
-
 import { cn } from '@repo/ui/lib/utils';
 
 import '@/features/navigation/styles/mask.css';
@@ -14,7 +13,6 @@ interface GridPatternProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
   [key: string]: unknown;
 }
-
 export function GridPattern({
   width = 40,
   height = 40,
@@ -26,7 +24,6 @@ export function GridPattern({
   ...props
 }: GridPatternProps) {
   const id = useId();
-
   return (
     <svg
       aria-hidden="true"

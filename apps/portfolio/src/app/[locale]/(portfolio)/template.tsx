@@ -1,8 +1,13 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
+import type { ReactNode } from 'react';
 
-export default function Template({ children }: { children: React.ReactNode }) {
+type PortfolioTemplateProps = Readonly<{
+  children: ReactNode;
+}>;
+
+export default function Template({ children }: PortfolioTemplateProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}

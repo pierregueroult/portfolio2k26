@@ -1,12 +1,12 @@
 import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsNumber, IsUrl, Matches, Max, Min, validateSync } from 'class-validator';
+import { IsEnum, IsNumber, IsString, IsUrl, Max, Min, validateSync } from 'class-validator';
 
-enum Environment {
+export enum Environment {
   Development = 'development',
   Production = 'production',
 }
 
-class EnvironmentVariables {
+export class EnvironmentVariables {
   @IsEnum(Environment)
   NODE_ENV: Environment;
 
@@ -17,6 +17,9 @@ class EnvironmentVariables {
 
   @IsUrl({ require_tld: false })
   NEST_CORS_ORIGIN: string;
+
+  @IsString()
+  NEST_MISTRAL_API_KEY: string;
 }
 
 export function validateEnvironment(config: Record<string, unknown>): EnvironmentVariables {

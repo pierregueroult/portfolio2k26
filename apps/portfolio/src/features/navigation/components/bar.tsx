@@ -9,12 +9,14 @@ import { renderBlurProps } from '@/features/navigation/lib/blur';
 import { SettingsPopover } from '@/features/settings/components/settings';
 import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
+import { ChatTrigger } from '@/features/chat/components/trigger';
+import { NavigationHeader } from './header';
 
 export function NavigationBar() {
   const t = useTranslations('NavigationBar');
   return (
-    <header className="w-full flex items-center justify-center fixed z-1000 top-4 md:bottom-8 md:top-auto @container/header">
-      <div className="container flex items-center justify-center md:justify-between flex-wrap">
+    <NavigationHeader>
+      <div className="container flex items-center justify-center md:justify-between flex-wrap px-8">
         <div {...renderBlurProps('hidden md:flex')}>
           <SettingsPopover>
             <Button size="icon" variant="outline">
@@ -54,11 +56,11 @@ export function NavigationBar() {
           />
         </ul>
         <div {...renderBlurProps('hidden md:flex')}>
-          <Button size="icon" variant="outline" disabled>
+          <ChatTrigger size="icon" variant="outline">
             <MessageCircleCodeIcon />
-          </Button>
+          </ChatTrigger>
         </div>
       </div>
-    </header>
+    </NavigationHeader>
   );
 }
