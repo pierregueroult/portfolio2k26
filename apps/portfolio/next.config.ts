@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
 const withNextIntl = createNextIntlPlugin({
   requestConfig: './src/features/internationalization/lib/request.ts',
   experimental: {
-    createMessagesDeclaration: './src/features/internationalization/messages/en.json',
+    createMessagesDeclaration: '../../packages/i18n/messages/en.json',
   },
 });
 

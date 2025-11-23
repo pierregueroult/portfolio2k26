@@ -39,7 +39,8 @@
   },
   "LocaleLayout": {
     "metadata": {
-      "title": "Pierre Guéroult — Ingénieur Logiciel & IA à Paris",
+      "titleDefault": "Pierre Guéroult — Ingénieur Logiciel & IA à Paris",
+      "titlePattern": "Pierre Guéroult",
       "description": "Pierre Guéroult est un ingénieur logiciel et IA basé à Paris, délivrant des applications web full‑stack, des interfaces propres (UI/UX), de l’automatisation, de l’analytique et un product craft pragmatique.",
       "keywords": "Pierre Guéroult, Pierre Gueroult, software engineer, AI engineer, Paris, full‑stack, développeur web, Next.js, React, TypeScript, Tailwind CSS, Node.js, NestJS, shadcn/ui, open‑source, Arqetype, portfolio, product engineering",
       "og": {
@@ -53,7 +54,7 @@
     }
   },
   "BlogPage": {
-    "meta": {
+    "metadata": {
       "title": "Blog",
       "description": "Réflexions sur le développement logiciel, l’IA et l’ingénierie produit.",
       "keywords": "blog, développement logiciel, IA, ingénierie produit, articles, tech, blog tech",
