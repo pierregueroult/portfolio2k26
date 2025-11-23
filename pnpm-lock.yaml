@@ -48,6 +48,9 @@ importers:
       '@repo/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@repo/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       ai:
         specifier: ^5.0.98
         version: 5.0.98(zod@3.25.76)
@@ -272,6 +275,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/i18n':
+        specifier: workspace:*
+        version: link:../i18n
       '@repo/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config

@@ -76,16 +76,16 @@ export const Reasoning = memo(
       }
     }, [isStreaming, startTime, setDuration]);
 
-    useEffect(() => {
-      if (defaultOpen && !isStreaming && isOpen && !hasAutoClosed) {
-        const timer = setTimeout(() => {
-          setIsOpen(false);
-          setHasAutoClosed(true);
-        }, AUTO_CLOSE_DELAY);
+    // useEffect(() => {
+    //   if (defaultOpen && !isStreaming && isOpen && !hasAutoClosed) {
+    //     const timer = setTimeout(() => {
+    //       setIsOpen(false);
+    //       setHasAutoClosed(true);
+    //     }, AUTO_CLOSE_DELAY);
 
-        return () => clearTimeout(timer);
-      }
-    }, [isStreaming, isOpen, defaultOpen, setIsOpen, hasAutoClosed]);
+    //     return () => clearTimeout(timer);
+    //   }
+    // }, [isStreaming, isOpen, defaultOpen, setIsOpen, hasAutoClosed]);
 
     const handleOpenChange = (newOpen: boolean) => {
       setIsOpen(newOpen);

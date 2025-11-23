@@ -4,6 +4,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { BlogModule } from './blog/blog.module';
 import { validateEnvironment } from './env.validation';
 import { ChatModule } from './chat/chat.module';
+import { LanguageModule } from './language/language.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ChatModule } from './chat/chat.module';
     LoggerModule.forRoot(),
     BlogModule,
     ChatModule,
+    LanguageModule,
   ],
   providers: [],
 })

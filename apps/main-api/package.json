@@ -27,6 +27,7 @@
     "@nestjs/throttler": "^6.4.0",
     "@repo/content": "workspace:*",
     "@repo/database": "workspace:*",
+    "@repo/i18n": "workspace:*",
     "ai": "^5.0.98",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",

@@ -1,25 +1,12 @@
 import { defineRouting } from 'next-intl/routing';
-
-export const locales = [
-  {
-    slug: 'en',
-    dir: 'ltr',
-  },
-  {
-    slug: 'fr',
-    dir: 'ltr',
-  },
-] as const;
-
-export type Locale = (typeof locales)[number]['slug'];
-export type LocaleWithDetails = (typeof locales)[number];
-
-export const localesSlugs: readonly Locale[] = locales.map((l) => l.slug) as readonly Locale[];
+import { locales, type Locale, type LocaleWithDetails, localesSlugs, defaultLocale } from "@repo/database/constracts/i18n/locale"
 
 export const routing = defineRouting({
   locales: localesSlugs,
-  defaultLocale: 'en',
+  defaultLocale: defaultLocale.slug,
   localePrefix: 'always',
   localeDetection: true,
   alternateLinks: true,
 });
+
+export { locales, type Locale, type LocaleWithDetails, localesSlugs };

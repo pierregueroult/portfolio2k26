@@ -26,6 +26,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/prettier-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@repo/i18n": "workspace:*",
     "@types/node": "^20.19.9",
     "ai": "^5.0.98",
     "eslint": "^9.0.0",
