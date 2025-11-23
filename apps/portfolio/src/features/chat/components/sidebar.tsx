@@ -10,7 +10,7 @@ import { Separator } from '@repo/ui/components/separator';
 
 export const CHAT_SIDEBAR_WIDTH = 400;
 
-export default function ChatSidebar() {
+export function ChatSidebar() {
   const { isOpen, messages, setMessages, triggerChat } = useChatStore(
     (state: ChatStore): ChatStore => state,
   );
@@ -19,9 +19,10 @@ export default function ChatSidebar() {
   useHotkeys('meta+b', () => triggerChat());
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.aside
+          key="chat-sidebar"
           className="chat-sidebar sticky top-0 h-screen overflow-hidden"
           initial={{ width: 0 }}
           animate={{ width: CHAT_SIDEBAR_WIDTH }}
@@ -29,6 +30,7 @@ export default function ChatSidebar() {
           transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0, duration: 0.2 }}
         >
           <motion.div
+            key="chat-sidebar-content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.2, delay: 0 } }}

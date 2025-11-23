@@ -1,9 +1,7 @@
-import { useId } from 'react';
+import { SVGProps, useId } from 'react';
 import { cn } from '@repo/ui/lib/utils';
 
-import '@/features/navigation/styles/mask.css';
-
-interface GridPatternProps extends React.SVGProps<SVGSVGElement> {
+interface GridPatternProps extends SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
   x?: number;
@@ -13,12 +11,13 @@ interface GridPatternProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
   [key: string]: unknown;
 }
+
 export function GridPattern({
-  width = 40,
-  height = 40,
+  width = 30,
+  height = 30,
   x = -1,
   y = -1,
-  strokeDasharray = '0',
+  strokeDasharray = '4 2',
   squares,
   className,
   ...props

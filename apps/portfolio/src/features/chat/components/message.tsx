@@ -1,17 +1,21 @@
-import { Message, MessageContent } from '@repo/ui/components/ai/message';
-import { Response } from '@repo/ui/components/ai/response';
+import { Message, MessageContent, MessageResponse } from '@repo/ui/components/ai/message';
+
 import { Tooltip, TooltipContent, TooltipTrigger } from '@repo/ui/components/tooltip';
 import { cn } from '@repo/ui/lib/utils';
+import { Reasoning, ReasoningContent, ReasoningTrigger } from '@repo/ui/components/ai/reasoning';
 
 import { useFormatter } from 'next-intl';
 
 import { ChatMessage } from '@/features/chat/stores/chat-store';
+import { ChatStatus } from 'ai';
 
 type ChatMessageProps = {
   message: ChatMessage;
+  messages: ChatMessage[];
+  status: ChatStatus;
 };
 
-export function ChatMessageComponent({ message }: ChatMessageProps) {
+export function ChatMessageComponent({ message, messages, status }: ChatMessageProps) {
   const format = useFormatter();
 
   const isThisMessageToday = ((d) => {
@@ -30,7 +34,24 @@ export function ChatMessageComponent({ message }: ChatMessageProps) {
           {message.parts.map((part, i) => {
             switch (part.type) {
               case 'text':
-                return <Response key={`${message.id}-${i}`}>{part.text}</Response>;
+                return (
+                  <MessageResponse key={`${message.id}-${i}-text`}>{part.text}</MessageResponse>
+                );
+              case 'reasoning':
+                return (
+                  <Reasoning
+                    key={`${message.id}-${i}-reasoning`}
+                    className="w-full"
+                    isStreaming={
+                      status === 'streaming' &&
+                      i === message.parts.length - 1 &&
+                      message.id === messages.at(-1)?.id
+                    }
+                  >
+                    <ReasoningTrigger />
+                    <ReasoningContent>{part.text}</ReasoningContent>
+                  </Reasoning>
+                );
               default:
                 return null;
             }
@@ -43,7 +64,7 @@ export function ChatMessageComponent({ message }: ChatMessageProps) {
           message.role === 'user' ? 'justify-end' : 'justify-start',
         )}
       >
-        {message.metadata?.createdAt && (
+        {message.parts.length > 0 && message.metadata?.createdAt && (
           <Tooltip>
             <TooltipTrigger>
               {isThisMessageToday

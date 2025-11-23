@@ -5,9 +5,6 @@ import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 import { Excalidraw as BaseComponent } from '@excalidraw/excalidraw';
 
-import '@excalidraw/excalidraw/index.css';
-import '@/features/blog/styles/excalidraw-override.css';
-
 const DynamicExcalidraw = dynamic(async () => (await import('./excalidraw-client')).default, {
   ssr: false,
 });

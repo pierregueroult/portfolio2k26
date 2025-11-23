@@ -7,6 +7,7 @@ import { env } from '@/env-client';
 import { useBrowserId } from '@/features/chat/hooks/use-browser-id';
 import type { ChatMessage } from '@/features/chat/stores/chat-store';
 import { ChatConversation } from './conversation';
+import { ChatInput } from './input';
 
 type ChatProps = {
   initialMessages: ChatMessage[];
@@ -19,6 +20,7 @@ export function Chat({ initialMessages, setStoredMessages, locale }: ChatProps) 
     transport: new DefaultChatTransport({
       api: `${env.NEXT_PUBLIC_PORTFOLIO_BACKEND_API_URL}/chat`,
     }),
+    messages: initialMessages,
   });
 
   useEffect(() => {
@@ -40,10 +42,11 @@ export function Chat({ initialMessages, setStoredMessages, locale }: ChatProps) 
 
   return (
     <>
-      <ChatConversation messages={messages} />
+      <ChatConversation messages={messages} status={status} key="conversation" />
       <ChatInput
         onSubmit={handleSubmit}
         disabled={status === 'error' || status === 'streaming' || status === 'submitted'}
+        key="input"
       />
     </>
   );

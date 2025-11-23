@@ -5,8 +5,6 @@ import { getOptions } from '@/features/blog/lib/markdown-options';
 import { components } from '@/features/blog/components/markdown';
 import { Locale } from '@/features/internationalization/lib/routing';
 
-import '@/features/blog/styles/katex.css';
-
 interface ArticleContentProps {
   content: string;
   locale: Locale;

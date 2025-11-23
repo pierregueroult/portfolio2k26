@@ -3,8 +3,6 @@ import { getArticleContentBySlug } from '@/features/blog/services/content';
 import { assertValidLocaleFromParams } from '@/features/internationalization/lib/utils';
 import { notFound } from 'next/navigation';
 
-import '@/features/blog/styles/excalidraw-remove.css';
-
 export default async function DrawingPage(
   props: PageProps<'/[locale]/blog/drawings/[...drawing]'>,
 ) {
