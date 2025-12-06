@@ -14,7 +14,7 @@ export function CertificationItem({
   logoAlt,
 }: CertificationItemProps) {
   return (
-    <div className="flex items-start gap-4 p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow">
+    <div className="flex items-center gap-4 p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow">
       {logoUrl && (
         <img
           src={logoUrl}
@@ -25,12 +25,12 @@ export function CertificationItem({
       <div className="flex-1 flex flex-col gap-1">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
           <h3 className="font-semibold leading-none tracking-tight">{title}</h3>
-          <span className="text-sm text-muted-foreground font-mono whitespace-nowrap bg-muted px-2 py-1 rounded w-fit sm:w-auto mt-1 sm:mt-0">
-            {date}
-          </span>
         </div>
         <p className="text-sm text-muted-foreground">{issuer}</p>
       </div>
+      <span className="text-sm text-muted-foreground font-mono whitespace-nowrap bg-muted px-2 py-1 rounded w-fit sm:w-auto mt-1 sm:mt-0">
+        {date}
+      </span>
     </div>
   );
 }

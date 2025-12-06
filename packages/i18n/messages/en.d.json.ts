@@ -158,7 +158,7 @@ declare const messages: {
     },
     "certifications": {
       "opquast": {
-        "title": "Opquast Certified: Web Project Quality Mastery (Expert 908 pts)",
+        "title": "Opquast: Web Project Quality Mastery (Expert 908 pts)",
         "issuer": "Opquast",
         "date": "March 2025",
         "logoAlt": "Opquast Logo"

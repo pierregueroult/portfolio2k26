@@ -49,21 +49,6 @@ export default async function ResumePage({ params }: PageProps<'/[locale]'>) {
       <div className="space-y-2">
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">{t('title')}</h1>
       </div>
-      <ResumeSection title={t('sections.works')} variant="timeline">
-        {worksWithGrouping.map((work) => (
-          <TimelineItem
-            key={work.id}
-            title={work.title}
-            subtitle={work.company}
-            date={work.date}
-            description={work.description}
-            logoUrl={resumeImages[work.id] ?? placeholderImage}
-            logoAlt={work.logoAlt}
-            isContinuation={work.isContinuation}
-            isLastInGroup={work.isLastInGroup}
-          />
-        ))}
-      </ResumeSection>
       <ResumeSection title={t('sections.schools')} variant="timeline">
         {schoolsWithGrouping.map((school) => (
           <TimelineItem
@@ -79,6 +64,34 @@ export default async function ResumePage({ params }: PageProps<'/[locale]'>) {
           />
         ))}
       </ResumeSection>
+      <ResumeSection title={t('sections.works')} variant="timeline">
+        {worksWithGrouping.map((work) => (
+          <TimelineItem
+            key={work.id}
+            title={work.title}
+            subtitle={work.company}
+            date={work.date}
+            description={work.description}
+            logoUrl={resumeImages[work.id] ?? placeholderImage}
+            logoAlt={work.logoAlt}
+            isContinuation={work.isContinuation}
+            isLastInGroup={work.isLastInGroup}
+          />
+        ))}
+      </ResumeSection>
+
+      <ResumeSection title={t('sections.certifications')} variant="list">
+        {certifications.map((cert) => (
+          <CertificationItemComponent
+            key={cert.id}
+            title={cert.title}
+            issuer={cert.issuer}
+            date={cert.date}
+            logoUrl={resumeImages[cert.id] ?? placeholderImage}
+            logoAlt={cert.logoAlt}
+          />
+        ))}
+      </ResumeSection>
       <ResumeSection title={t('sections.volunteering')} variant="timeline">
         {volunteeringWithGrouping.map((volunteer) => (
           <TimelineItem
@@ -91,18 +104,6 @@ export default async function ResumePage({ params }: PageProps<'/[locale]'>) {
             logoAlt={volunteer.logoAlt}
             isContinuation={volunteer.isContinuation}
             isLastInGroup={volunteer.isLastInGroup}
-          />
-        ))}
-      </ResumeSection>
-      <ResumeSection title={t('sections.certifications')} variant="list">
-        {certifications.map((cert) => (
-          <CertificationItemComponent
-            key={cert.id}
-            title={cert.title}
-            issuer={cert.issuer}
-            date={cert.date}
-            logoUrl={resumeImages[cert.id] ?? placeholderImage}
-            logoAlt={cert.logoAlt}
           />
         ))}
       </ResumeSection>

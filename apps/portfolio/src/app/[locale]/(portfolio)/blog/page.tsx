@@ -4,6 +4,10 @@ import { getAllBlogArticles } from '@/features/blog/services/content';
 import { BlogArticleItem } from '@/features/blog/components/blog-article-item';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { Button } from '@repo/ui/components/button';
+import { Badge } from '@repo/ui/components/badge';
+import { Link } from '@/features/internationalization/lib/navigation';
+import { ListTreeIcon } from 'lucide-react';
 
 export async function generateMetadata({ params }: PageProps<'/[locale]'>): Promise<Metadata> {
   const locale = await assertValidLocaleFromParams(params);
@@ -46,19 +50,11 @@ export default async function BlogPage() {
     }
   });
 
-  if (articles.length === 0) {
-    return (
-      <div className="py-24 text-center">
-        <p className="text-muted-foreground">No articles published yet.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="relative py-12 md:py-16">
-      <div className="space-y-16">
+      <div className="flex flex-col">
         {sortedYears.map((year) => (
-          <section key={year} className="space-y-6">
+          <section key={year} className="space-y-6 not-last:mb-12">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{year}</h2>
             <div className="space-y-1">
               {articlesByYear[year]?.map((article, index) => (
@@ -72,6 +68,17 @@ export default async function BlogPage() {
             </div>
           </section>
         ))}
+        {articles.length === 0 && (
+          <div className="py-24 text-center">
+            <p className="text-muted-foreground">No articles published yet.</p>
+          </div>
+        )}
+        <Badge asChild variant="secondary">
+          <Link className="self-center" href="/blog/files">
+            <ListTreeIcon />
+            Parcourir l'arborescence
+          </Link>
+        </Badge>
       </div>
     </div>
   );

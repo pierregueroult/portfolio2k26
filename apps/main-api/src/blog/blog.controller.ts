@@ -6,10 +6,12 @@ import { ImageService } from './image/image.service';
 import { MarkdownService } from './markdown/markdown.service';
 import { DocumentService } from './document/document.service';
 
-import { convertParamToPath } from './blog.util';
+import { convertParamToPath, getDirectoryTree, resolveContentDirectory } from './blog.util';
 
 import { ArticleResponse } from '@repo/database/dtos/blog/article';
 import { GetAllImagesResponse } from '@repo/database/dtos/blog/image';
+import { TreeNode } from '@repo/database/dtos/blog/tree';
+import { resolve } from 'path';
 
 @Controller('blog')
 export class BlogController {
@@ -18,7 +20,14 @@ export class BlogController {
     private readonly imageService: ImageService,
     private readonly markdownService: MarkdownService,
     private readonly documentService: DocumentService,
-  ) {}
+  ) { }
+
+  @Get('tree')
+  async getBlogTree(): Promise<TreeNode[]> {
+    const contentDir = resolveContentDirectory();
+    const blogDir = resolve(contentDir, 'blog');
+    return getDirectoryTree(blogDir);
+  }
 
   @Get('article/*param')
   async getArticleBySlug(@Param('param') param: string): Promise<ArticleResponse> {

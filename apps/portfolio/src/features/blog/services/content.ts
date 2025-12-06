@@ -84,3 +84,9 @@ export interface ArticleSummary {
 export async function getAllBlogArticles(): Promise<ArticleSummary[]> {
   return await getOrThrow<ArticleSummary[]>('/blog/articles/for-blog');
 }
+
+import { TreeNode } from '@repo/database/dtos/blog/tree';
+
+export async function getBlogTree(): Promise<TreeNode[]> {
+  return await getOrThrow<TreeNode[]>('/blog/tree');
+}
