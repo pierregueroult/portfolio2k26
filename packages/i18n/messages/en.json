@@ -67,5 +67,123 @@
         "description": "Thoughts on software development, AI, and product engineering."
       }
     }
+  },
+  "ResumePage": {
+    "title": "Resume",
+    "sections": {
+      "works": "Works",
+      "schools": "Education",
+      "certifications": "Certifications",
+      "softSkills": "Skills",
+      "volunteering": "Volunteering"
+    },
+    "works": {
+      "altelis_engineer": {
+        "title": "Engineer in Web Development and AI",
+        "company": "Altelis",
+        "date": "Sept 2025 - Present",
+        "description": "Starting my journey as an engineer in web development and artificial intelligence.",
+        "logoAlt": "Altelis Logo",
+        "group": "altelis"
+      },
+      "frameip_apprentice": {
+        "title": "Web Developer Apprentice",
+        "company": "Groupe FrameIP",
+        "date": "August 2024 - August 2025",
+        "description": "Internal tool development in collaboration with the SOC for cybersecurity needs. Development of an export tool for the Sales department. Conception, development, and structuring of a career site project. Active participation in development team rituals (daily, planning, retrospective).",
+        "logoAlt": "FrameIP Logo",
+        "group": "frameip"
+      },
+      "frameip_junior": {
+        "title": "Junior Web Developer",
+        "company": "Groupe FrameIP",
+        "date": "June 2024 - August 2024",
+        "description": "Participated in the development of a CRM in an Agile environment using Scrum methodology. Code review and validation via GitLab merge requests. Active involvement in Scrum rituals: sprints, daily meetings, and retrospectives.",
+        "logoAlt": "FrameIP Logo",
+        "group": "frameip"
+      },
+      "frameip_intern": {
+        "title": "Web Developer Intern",
+        "company": "Groupe FrameIP",
+        "date": "April 2024 - June 2024",
+        "description": "Exploration of IS applications and understanding of business trades. Conception and development of a ticket management system within the intranet. Development of a ticketing feature in the intranet to facilitate partnership management.",
+        "logoAlt": "FrameIP Logo",
+        "group": "frameip"
+      },
+      "cerp_admin": {
+        "title": "Administrative Services Employee",
+        "company": "CERP Rouen",
+        "date": "July 2022 - July 2022",
+        "description": "Archiving of documents for administrative services. Ensuring proper classification, storage, and processing of files.",
+        "logoAlt": "CERP Logo",
+        "group": "cerp"
+      }
+    },
+    "schools": {
+      "esiee_engineering": {
+        "degree": "Engineering Degree in Computer Science, Design, Architecture and Development",
+        "school": "ESIEE PARIS",
+        "date": "May 2025 - August 2028",
+        "description": "3-year alternating rhythm (1 to 6 months) with increasing responsibility in the company. Engineering training in Computer Science, Design, Architecture, and Development, oriented towards practice and results.",
+        "logoAlt": "ESIEE Logo",
+        "group": "esiee"
+      },
+      "iut_rouen_but": {
+        "degree": "BUT Multimedia and Internet Professions",
+        "school": "IUT de Rouen",
+        "date": "Sept 2024 - August 2025",
+        "description": "Deepening skills in web development and creation of interactive digital experiences. Game of the year project (top of class): design of an original video game with a 3D showcase site.",
+        "logoAlt": "IUT Rouen Logo",
+        "group": "iut_rouen"
+      },
+      "iut_rouen_dut": {
+        "degree": "DUT Multimedia and Internet Professions, Computer Science",
+        "school": "IUT de Rouen",
+        "date": "Sept 2022 - July 2024",
+        "description": "Multidisciplinary training focused on digital content creation and web development. Treasurer of BDE Labete.",
+        "logoAlt": "IUT Rouen Logo",
+        "group": "iut_rouen"
+      },
+      "lycee_pablo_neruda": {
+        "degree": "General Baccalaureate (Honors)",
+        "school": "Lycée Pablo Neruda",
+        "date": "Sept 2019 - July 2022",
+        "description": "Specialties: Physics-Chemistry, Digital and Computer Sciences (NSI), Mathematics. European Section (English). Class delegate, member of CVL and Board of Administration.",
+        "logoAlt": "Lycée Pablo Neruda Logo",
+        "group": "lycee_pablo_neruda"
+      }
+    },
+    "certifications": {
+      "opquast": {
+        "title": "Opquast Certified: Web Project Quality Mastery (Expert 908 pts)",
+        "issuer": "Opquast",
+        "date": "March 2025",
+        "logoAlt": "Opquast Logo"
+      },
+      "cambridge": {
+        "title": "Cambridge English Certificate B2",
+        "issuer": "Cambridge University Press & Assessment",
+        "date": "March 2022",
+        "logoAlt": "Cambridge Logo"
+      }
+    },
+    "volunteering": {
+      "bde_treasurer": {
+        "title": "Treasurer",
+        "company": "BDE LA BÊTE",
+        "date": "April 2023 - April 2024",
+        "description": "Treasurer in a student association: Expense management, cash management during events, member of the BDE board.",
+        "logoAlt": "BDE Logo",
+        "group": "bde"
+      },
+      "neruda_board": {
+        "title": "Board Member | CVL Member",
+        "company": "Lycée Pablo Neruda",
+        "date": "Sept 2021 - July 2022",
+        "description": "Meetings with teachers and admin staff, budget meetings, preparation of board meetings, organization of open days (JPO).",
+        "logoAlt": "Lycee Logo",
+        "group": "neruda"
+      }
+    }
   }
 }

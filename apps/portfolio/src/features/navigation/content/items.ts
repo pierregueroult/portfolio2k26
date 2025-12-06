@@ -11,6 +11,10 @@ export const items: NavigationList = [
       key: 'blog',
       href: '/blog',
     },
+    {
+      key: 'resume',
+      href: '/resume',
+    },
   ],
   [
     {

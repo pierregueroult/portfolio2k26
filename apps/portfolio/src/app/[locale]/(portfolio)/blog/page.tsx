@@ -4,7 +4,6 @@ import { getAllBlogArticles } from '@/features/blog/services/content';
 import { BlogArticleItem } from '@/features/blog/components/blog-article-item';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import { GridPattern } from '@/components/ui/grid-pattern';
 
 export async function generateMetadata({ params }: PageProps<'/[locale]'>): Promise<Metadata> {
   const locale = await assertValidLocaleFromParams(params);

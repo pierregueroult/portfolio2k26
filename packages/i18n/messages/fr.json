@@ -49,7 +49,7 @@
       },
       "twitter": {
         "title": "Pierre Guéroult — Ingénieur Logiciel & IA à Paris",
-        "description": "Full‑stack, UI/UX, automatisation, analytique et fonctionnalités IA."
+        "description": "Full-stack, UI/UX, automatisation, analytique et fonctionnalités IA."
       }
     }
   },
@@ -65,6 +65,124 @@
       "twitter": {
         "title": "Blog",
         "description": "Réflexions sur le développement logiciel, l’IA et l’ingénierie produit."
+      }
+    }
+  },
+  "ResumePage": {
+    "title": "CV",
+    "sections": {
+      "works": "Expériences",
+      "schools": "Formation",
+      "certifications": "Certifications",
+      "softSkills": "Compétences",
+      "volunteering": "Bénévolat"
+    },
+    "works": {
+      "altelis_engineer": {
+        "title": "Ingénieur en développement web et intelligence artificielle",
+        "company": "Altelis",
+        "date": "Sept 2025 - Maintenant",
+        "description": "Début de mon parcours en tant qu'ingénieur en développement web et intelligence artificielle.",
+        "logoAlt": "Logo Altelis",
+        "group": "altelis"
+      },
+      "frameip_apprentice": {
+        "title": "Alternant Développeur Web",
+        "company": "Groupe FrameIP",
+        "date": "Août 2024 - Août 2025",
+        "description": "Développement d'un outil interne avec le SOC (Security Operations Center) pour la cybersécurité. Développement d'un outil d'export pour le pôle Commercial. Conception et structuration d'un site carrière. Participation aux rituels de l'équipe (daily, planning, rétrospective).",
+        "logoAlt": "Logo Groupe FrameIP",
+        "group": "frameip"
+      },
+      "frameip_junior": {
+        "title": "Développeur Web Junior",
+        "company": "Groupe FrameIP",
+        "date": "Juin 2024 - Août 2024",
+        "description": "Participation au développement d'un CRM en Agile (Scrum). Relecture et validation de code via GitLab. Implication dans les rituels Scrum (sprints, dailies, rétrospectives).",
+        "logoAlt": "Logo Groupe FrameIP",
+        "group": "frameip"
+      },
+      "frameip_intern": {
+        "title": "Stagiaire Développeur Web",
+        "company": "Groupe FrameIP",
+        "date": "Avril 2024 - Juin 2024",
+        "description": "Exploration des applications du SI et compréhension des métiers. Développement d'un système de gestion de tickets et d'une billetterie intranet.",
+        "logoAlt": "Logo Groupe FrameIP",
+        "group": "frameip"
+      },
+      "cerp_admin": {
+        "title": "Employé de services administratifs",
+        "company": "CERP Rouen",
+        "date": "Juil 2022 - Juil 2022",
+        "description": "Archivage de documents administratifs. Classement, stockage et traitement approprié des dossiers.",
+        "logoAlt": "Logo CERP Rouen",
+        "group": "cerp"
+      }
+    },
+    "schools": {
+      "esiee_engineering": {
+        "degree": "Diplôme d'ingénieur, Informatique, Design, Architecture et Développement",
+        "school": "ESIEE PARIS",
+        "date": "Mai 2025 - Août 2028",
+        "description": "Rythme alterné sur 3 ans. Formation orientée mise en pratique et résultats.",
+        "logoAlt": "Logo ESIEE Paris",
+        "group": "esiee"
+      },
+      "iut_rouen_but": {
+        "degree": "BUT Métiers du Multimédia et de l'Internet",
+        "school": "IUT de Rouen",
+        "date": "Sept 2024 - Août 2025",
+        "description": "Développement web et dispositifs interactifs. Projet de fin d'année majoré : conception d'un jeu vidéo original avec site 3D.",
+        "logoAlt": "Logo IUT Rouen",
+        "group": "iut_rouen"
+      },
+      "iut_rouen_dut": {
+        "degree": "DUT Métiers du Multimédia et de l'Internet",
+        "school": "IUT de Rouen",
+        "date": "Sept 2022 - Juil 2024",
+        "description": "Formation multidisciplinaire (Développement web, Design, Gestion de projet). Trésorier du BDE Labete.",
+        "logoAlt": "Logo IUT Rouen",
+        "group": "iut_rouen"
+      },
+      "lycee_pablo_neruda": {
+        "degree": "Baccalauréat général (Mention Très Bien)",
+        "school": "Lycée Pablo Neruda",
+        "date": "Sept 2019 - Juil 2022",
+        "description": "Spécialités : Physique-Chimie, NSI, Mathématiques. Section européenne. Délégué et membre du CVL.",
+        "logoAlt": "Logo Lycée Pablo Neruda",
+        "group": "lycee_pablo_neruda"
+      }
+    },
+    "certifications": {
+      "opquast": {
+        "title": "Opquast Certified : Maîtrise de la qualité en projet Web (Expert 908 pts)",
+        "issuer": "Opquast",
+        "date": "Mars 2025",
+        "logoAlt": "Logo Opquast"
+      },
+      "cambridge": {
+        "title": "Cambridge English Certificate B2",
+        "issuer": "Cambridge University Press & Assessment",
+        "date": "Mars 2022",
+        "logoAlt": "Logo Cambridge"
+      }
+    },
+    "volunteering": {
+      "bde_treasurer": {
+        "title": "Trésorier",
+        "company": "BDE LA BÊTE",
+        "date": "Avril 2023 - Avril 2024",
+        "description": "Trésorier : Gestion des frais, de la caisse, membre du bureau et membre d'honneur.",
+        "logoAlt": "Logo BDE ESIEE Paris",
+        "group": "bde"
+      },
+      "neruda_board": {
+        "title": "Membre du Conseil d'Administration | CVL",
+        "company": "Lycée Pablo Neruda",
+        "date": "Sept 2021 - Juil 2022",
+        "description": "Réunions budget, conseils d'administration, organisation JPO, représentation des élèves.",
+        "logoAlt": "Logo CVL Pablo Neruda",
+        "group": "neruda"
       }
     }
   }
