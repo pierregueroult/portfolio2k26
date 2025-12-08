@@ -8,6 +8,7 @@ import { useBrowserId } from '@/features/chat/hooks/use-browser-id';
 import type { ChatMessage } from '@/features/chat/stores/chat-store';
 import { ChatConversation } from './conversation';
 import { ChatInput } from './input';
+import { ChatHeader } from './header';
 
 type ChatProps = {
   initialMessages: ChatMessage[];
@@ -42,6 +43,7 @@ export function Chat({ initialMessages, setStoredMessages, locale }: ChatProps) 
 
   return (
     <>
+      <ChatHeader />
       <ChatConversation messages={messages} status={status} key="conversation" />
       <ChatInput
         onSubmit={handleSubmit}

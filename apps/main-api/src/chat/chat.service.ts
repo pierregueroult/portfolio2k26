@@ -128,6 +128,8 @@ You are a specialized assistant with ONE job: help people learn about Pierre Gu√
         options = {} satisfies OpenAICompatibleCompletionProviderOptions;
       }
 
+      console.log(messages);
+
       return streamText({
         model,
         messages: convertToModelMessages(messages),

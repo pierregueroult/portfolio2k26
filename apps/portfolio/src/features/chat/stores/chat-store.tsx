@@ -25,6 +25,7 @@ export type ChatActions = {
   triggerChat: () => void;
   addMessage: (message: ChatMessage) => void;
   setMessages: (messages: ChatMessage[]) => void;
+  cleanMessages: () => void;
 };
 
 export type ChatStore = ChatStates & ChatActions;
@@ -45,6 +46,7 @@ export const createChatStore = (initState: ChatStates = defaultChatStates) => {
         addMessage: (message: ChatMessage) =>
           set((state) => ({ messages: [...state.messages, message] })),
         setMessages: (messages: ChatMessage[]) => set(() => ({ messages })),
+        cleanMessages: () => set(() => ({ messages: [] })),
       }),
       {
         name: 'chat-store',
