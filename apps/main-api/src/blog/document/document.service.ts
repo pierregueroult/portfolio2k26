@@ -1,7 +1,7 @@
 import { type ReadStream, createReadStream, existsSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { resolveContentDirectory } from '../blog.util';
+import { resolveSafeChildPath } from '../blog.util';
 
 @Injectable()
 export class DocumentService {
@@ -9,8 +9,7 @@ export class DocumentService {
     stream: ReadStream;
     filename: string;
   }> {
-    const dir = resolveContentDirectory();
-    const filePath = join(dir, 'blog', path);
+    const filePath = resolveSafeChildPath(path);
 
     if (!existsSync(filePath)) {
       throw new NotFoundException(`PDF file not found: ${path}`);

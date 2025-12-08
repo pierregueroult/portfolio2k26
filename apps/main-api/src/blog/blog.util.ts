@@ -1,6 +1,7 @@
-import { dirname, relative, resolve } from 'node:path';
+import { dirname, relative, resolve, normalize, join } from 'node:path';
 import { readdir, stat } from 'node:fs/promises';
 import { TreeNode } from '@repo/database/dtos/blog/tree';
+import { BadRequestException, ForbiddenException } from '@nestjs/common';
 
 export function convertParamToPath(param: string): string {
   return param.replace(/,/g, '/').replaceAll('-', ' ');
@@ -8,7 +9,20 @@ export function convertParamToPath(param: string): string {
 
 export function resolveContentDirectory(): string {
   const packageJsonPath = require.resolve('@repo/content/package.json');
-  return dirname(packageJsonPath);
+  return join(dirname(packageJsonPath), 'blog');
+}
+
+
+export function resolveSafeChildPath(relativePath: string): string {
+  const rootDir = resolveContentDirectory();
+  const safePath = normalize(relativePath).replace(/^(\.\.(\/|\\|$))+/, '');
+  const absolutePath = resolve(rootDir, safePath);
+
+  if (!absolutePath.startsWith(rootDir)) {
+    throw new ForbiddenException('Access to files outside content directory is denied');
+  }
+
+  return absolutePath;
 }
 
 export async function readDirectoryRecursively(

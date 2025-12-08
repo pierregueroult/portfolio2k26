@@ -15,6 +15,7 @@ export async function GET(
       'Content-Type': 'application/pdf',
       'Content-Disposition': `inline; filename="${filename}"`,
       'Cache-Control': 'public, max-age=3600, immutable',
+      'X-Robots-Tag': 'noindex, nofollow, noarchive',
     },
   });
 }

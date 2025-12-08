@@ -1,9 +1,9 @@
 import { type ReadStream, createReadStream, existsSync } from 'node:fs';
-import { basename, join, resolve } from 'node:path';
+import { basename } from 'node:path';
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { lookup } from 'mime-types';
 
-import { resolveContentDirectory, readDirectoryRecursively } from '../blog.util';
+import { resolveSafeChildPath, readDirectoryRecursively } from '../blog.util';
 
 @Injectable()
 export class ImageService {
@@ -11,8 +11,7 @@ export class ImageService {
     stream: ReadStream;
     mime: string;
   }> {
-    const dir = resolveContentDirectory();
-    const filePath = join(dir, 'blog', path);
+    const filePath = resolveSafeChildPath(path);
 
     if (!existsSync(filePath)) {
       throw new NotFoundException(`Image file not found: ${path}`);
@@ -35,8 +34,7 @@ export class ImageService {
   }
 
   async getAllImagesDictionary() {
-    const dir = resolveContentDirectory();
-    const blogDir = resolve(dir, 'blog');
+    const blogDir = resolveSafeChildPath('.');
 
     const images = await readDirectoryRecursively(
       blogDir,

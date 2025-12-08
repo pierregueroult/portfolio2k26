@@ -4,9 +4,9 @@ import { getPathname } from '@/features/internationalization/lib/navigation';
 import { SITE_BASE_URL } from '@/config';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const urls = ['/', '/blog'];
+  const urls = ['/', '/blog', '/resume'];
 
-  const sitemap: MetadataRoute.Sitemap = urls.map((url: string) => ({
+  return urls.map((url: string) => ({
     url: SITE_BASE_URL + url,
     lastModified: new Date(),
     changeFrequency: 'weekly',
@@ -17,6 +17,4 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     },
   }));
-
-  return sitemap;
 }

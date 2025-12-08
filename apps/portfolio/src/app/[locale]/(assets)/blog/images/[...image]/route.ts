@@ -14,6 +14,7 @@ export async function GET(
     headers: {
       'Content-Type': contentType,
       'Cache-Control': cacheControl,
+      'X-Robots-Tag': 'noindex, nofollow, noarchive',
     },
   });
 }

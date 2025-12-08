@@ -1,22 +1,22 @@
 import { Controller, Get, Param, Res } from '@nestjs/common';
 
 import type { Response } from 'express';
-import { ExcalidrawService } from './excalidraw/excalidraw.service';
+import { BlogService } from './blog.service';
 import { ImageService } from './image/image.service';
 import { MarkdownService } from './markdown/markdown.service';
 import { DocumentService } from './document/document.service';
 
-import { convertParamToPath, getDirectoryTree, resolveContentDirectory } from './blog.util';
+import { convertParamToPath } from './blog.util';
 
 import { ArticleResponse } from '@repo/database/dtos/blog/article';
 import { GetAllImagesResponse } from '@repo/database/dtos/blog/image';
 import { TreeNode } from '@repo/database/dtos/blog/tree';
-import { resolve } from 'path';
+
 
 @Controller('blog')
 export class BlogController {
   constructor(
-    private readonly excalidrawService: ExcalidrawService,
+    private readonly blogService: BlogService,
     private readonly imageService: ImageService,
     private readonly markdownService: MarkdownService,
     private readonly documentService: DocumentService,
@@ -24,42 +24,13 @@ export class BlogController {
 
   @Get('tree')
   async getBlogTree(): Promise<TreeNode[]> {
-    const contentDir = resolveContentDirectory();
-    const blogDir = resolve(contentDir, 'blog');
-    return getDirectoryTree(blogDir);
+    return this.blogService.getTree();
   }
 
   @Get('article/*param')
   async getArticleBySlug(@Param('param') param: string): Promise<ArticleResponse> {
     const path = convertParamToPath(param);
-    const { content: rawContent, stats } = await this.markdownService.readMarkdownFile(path);
-    const { content, data: frontmatter } =
-      await this.markdownService.extractFrontMatterOrThrow(rawContent);
-
-    if (frontmatter.tags && frontmatter.tags.includes('excalidraw')) {
-      const json = this.excalidrawService.decompressDrawing(
-        this.excalidrawService.getCompressedJson(content),
-      );
-
-      return {
-        stats,
-        frontmatter,
-        type: 'excalidraw',
-        drawing: {
-          json,
-          content,
-        },
-      };
-    }
-
-    return {
-      stats,
-      frontmatter,
-      type: 'markdown',
-      article: {
-        content,
-      },
-    };
+    return this.blogService.getArticle(path);
   }
 
   @Get('image/*param')

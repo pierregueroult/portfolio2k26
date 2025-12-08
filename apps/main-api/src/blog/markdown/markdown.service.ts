@@ -10,7 +10,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import matter from 'gray-matter';
-import { resolveContentDirectory, readDirectoryRecursively } from '../blog.util';
+import { resolveSafeChildPath, readDirectoryRecursively } from '../blog.util';
 
 interface MarkdownFileResult {
   content: string;
@@ -91,13 +91,12 @@ export class MarkdownService {
   }
 
   private buildMarkdownFilePath(relativePath: string): string {
-    const contentDir = resolveContentDirectory();
-    return resolve(contentDir, BLOG_SUBDIRECTORY, `${relativePath}${MARKDOWN_EXTENSION}`);
+    const fullPath = relativePath.endsWith(MARKDOWN_EXTENSION) ? relativePath : `${relativePath}${MARKDOWN_EXTENSION}`;
+    return resolveSafeChildPath(fullPath);
   }
 
   private resolveBlogDirectory(): string {
-    const contentDir = resolveContentDirectory();
-    return resolve(contentDir, BLOG_SUBDIRECTORY);
+    return resolveSafeChildPath('.');
   }
 
   private isPublicArticle(data: Record<string, unknown>): boolean {
