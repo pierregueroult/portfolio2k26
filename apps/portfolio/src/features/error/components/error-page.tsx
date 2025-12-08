@@ -27,7 +27,7 @@ export function ErrorPage({
     return (
         <div
             className={cn(
-                'min-h-[calc(100vh-6rem)] flex items-center justify-center relative bg-background text-foreground p-4',
+                'min-h-[calc(100vh-6rem)] flex items-center justify-center relative text-foreground p-4',
                 className,
             )}
         >

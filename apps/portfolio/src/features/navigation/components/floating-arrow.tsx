@@ -10,7 +10,7 @@ export function FloatingArrow({ message, className }: FloatingArrowProps) {
   return (
     <div
       className={cn(
-        'absolute top-8 left-1/2 -translate-x-1/2 md:top-auto md:bottom-0 md:translate-x-0 animate-bounce',
+        'absolute top-8 left-1/2 -translate-x-1/2 md:top-auto md:bottom-0 animate-bounce',
         className,
       )}
     >
