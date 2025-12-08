@@ -3,14 +3,14 @@
 import { ComponentProps } from "react";
 import { Button } from "@repo/ui/components/button";
 import { BrushCleaningIcon } from "lucide-react";
-import { useChatStore } from "../stores/chat-store";
 
-type CleanButtonProps = ComponentProps<typeof Button>;
+type CleanButtonProps = ComponentProps<typeof Button> & {
+    onClean: () => void;
+};
 
-export function CleanButton({ ...props }: CleanButtonProps) {
-    const { cleanMessages } = useChatStore(value => value);
+export function CleanButton({ onClean, ...props }: CleanButtonProps) {
     return (
-        <Button {...props} onClick={() => cleanMessages()} >
+        <Button {...props} onClick={onClean} >
             <BrushCleaningIcon />
         </Button>
     );

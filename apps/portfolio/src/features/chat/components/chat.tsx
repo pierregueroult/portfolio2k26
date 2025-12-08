@@ -17,7 +17,7 @@ type ChatProps = {
 };
 
 export function Chat({ initialMessages, setStoredMessages, locale }: ChatProps) {
-  const { messages, sendMessage, status } = useChat<ChatMessage>({
+  const { messages, sendMessage, status, setMessages } = useChat<ChatMessage>({
     transport: new DefaultChatTransport({
       api: `${env.NEXT_PUBLIC_PORTFOLIO_BACKEND_API_URL}/chat`,
     }),
@@ -41,9 +41,13 @@ export function Chat({ initialMessages, setStoredMessages, locale }: ChatProps) 
     });
   };
 
+  const handleClean = () => {
+    setMessages([]);
+  };
+
   return (
     <>
-      <ChatHeader />
+      <ChatHeader onClean={handleClean} />
       <ChatConversation messages={messages} status={status} key="conversation" />
       <ChatInput
         onSubmit={handleSubmit}

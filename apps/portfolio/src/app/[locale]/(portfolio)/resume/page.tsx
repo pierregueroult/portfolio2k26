@@ -46,9 +46,6 @@ export default async function ResumePage({ params }: PageProps<'/[locale]'>) {
 
   return (
     <div className="container max-w-3xl mx-auto py-12 px-4 md:px-6 space-y-16 mb-20">
-      <div className="space-y-2">
-        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">{t('title')}</h1>
-      </div>
       <ResumeSection title={t('sections.schools')} variant="timeline">
         {schoolsWithGrouping.map((school) => (
           <TimelineItem
